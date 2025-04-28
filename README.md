@@ -1,6 +1,13 @@
-# tubes_kelompok_7
+# TUGAS BESAR PEMROGRAMAN VISUAL DAN PIRANTI BERGERAK
+Tugas ini merupakan project pembuatan aplikasi dengan framework flutter.
 
-A new Flutter project.
+dibangun oleh kelompok 7
+anggota:
+1. Natasha Adinda Cantika
+2. Futih Millati Addinillah
+3. Muhammad Ruby Pradana Syamsun
+4. Armelia Zahrah Mumtaz
+5. Dessi Husna Isnaini
 
 ## Getting Started
 
