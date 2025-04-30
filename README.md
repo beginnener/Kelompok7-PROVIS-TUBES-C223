@@ -9,7 +9,7 @@ anggota:
 4. Armelia Zahrah Mumtaz
 5. Dessi Husna Isnaini
 
-## Information for collaborating
+## Information for collaborator
 Langkah untuk cloning repositori
 1. Pilih/buat folder yang kalian mau.
 2. Copy link dari repositori ini.
