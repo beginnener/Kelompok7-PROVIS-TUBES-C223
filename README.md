@@ -13,7 +13,9 @@ anggota:
 Langkah untuk cloning repositori
 1. Pilih/buat folder yang kalian mau.
 2. Copy link dari repositori ini.
-3. Jalankan.
+3. Masuk ke Git Bash.
+4. Change directory ke folder yang mmenjadi tujuan.
+5. Jalankan.
 ```bash
   git clone [url_repo]
 ```
