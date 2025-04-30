@@ -14,15 +14,15 @@ Langkah untuk cloning repositori
 1. Pilih/buat folder yang kalian mau.
 2. Copy link dari repositori ini.
 3. Masuk ke Git Bash.
-4. Change directory ke folder yang mmenjadi tujuan.
+4. Change directory ke folder yang menjadi tujuan.
 5. Jalankan.
 ```bash
   git clone [url_repo]
 ```
 
 Setelah cloning selesai, buka projek di Vscode. Biasanya akan ada error dibeberapa file. 
-Jalankan perintah berikut di terminal Vscode
+Jalankan perintah berikut di terminal Vscode,
 ```
   flutter pub get
 ```
-perintah tsb dijalankan untuk mendapatkan dependencies yang tidak masuk ke repository karena .gitignore 
+perintah tsb dijalankan untuk mendapatkan dependencies yang tidak masuk ke repository karena .gitignore .
