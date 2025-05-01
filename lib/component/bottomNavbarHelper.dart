@@ -1,6 +1,8 @@
 // import 'dart:nativewrappers/_internal/vm_shared/lib/null_patch.dart';
 
 import 'package:flutter/material.dart';
+import 'package:tubes_kelompok_7/pages/favorit.dart';
+import 'package:tubes_kelompok_7/pages/profile.dart';
 
 class Bottomnavbarhelper {
   static void handleBottomNavTap(BuildContext context, int index, int currentIndex) {
@@ -18,7 +20,7 @@ class Bottomnavbarhelper {
         break;
       case 2: // favorit
         print('Favorite tapped');
-        target = const Placeholder();
+        target = const FavoritesPage();
         break;
       case 3: // chat
         print('Chat tapped');
@@ -26,7 +28,7 @@ class Bottomnavbarhelper {
         break;
       case 4: // profil
         print('Profile tapped');
-        target = const Placeholder();
+        target = const ProfilePage();
         break;
       default:
         return;
