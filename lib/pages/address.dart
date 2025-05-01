@@ -25,14 +25,12 @@ class AddressPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Alamat Pengiriman',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Nama Penerima',
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                hintText: 'Nama Lengkap',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -40,6 +38,8 @@ class AddressPage extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Nomor Telepon',
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                hintText: '08123456789',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -47,17 +47,51 @@ class AddressPage extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Alamat Lengkap',
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                hintText: 'Jl. Raya No. 123, Jakarta',
                 border: OutlineInputBorder(),
               ),
               maxLines: 3,
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Handle save address action
-              },
-              child: const Text('Simpan Alamat'),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Provinsi, Kota/Kabupaten, Kecamatan, Kode Pos',
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                hintText: 
+                'DKI Jakarta,\n'
+                'Jakarta Selatan,\n'
+                'Kebayoran Baru,\n'
+                '12120',
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 4,
             ),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Catatan Tambahan (Opsional)',
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                hintText: 'Contoh: Tingkat 2, Blok A',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              height: 200,
+              width: double.infinity,
+              decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Center(
+              child: Text(
+                'Peta akan ditampilkan di sini (gunakan plugin seperti Google Maps atau MapBox)',
+                style: TextStyle(color: Colors.grey),
+                textAlign: TextAlign.center,
+              ),
+              ),
+            )
           ],
         ),
       ),
