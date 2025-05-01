@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tubes_kelompok_7/pages/notification.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -8,36 +7,54 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context); // kembali ke halaman sebelumnya
+            } else {
+              Navigator.pushReplacementNamed(context, '/'); // ganti dengan route home
+            }
+          },
+        ),
         title: const Text('Pengaturan'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
+        elevation: 1.0,
       ),
       body: ListView(
         children: [
-          buildListTile(context, (context) => Placeholder(), Icons.language, 'Bahasa'),
-          buildListTile(context, (context) => NotificationPage(), Icons.notifications, 'Notifikasi'),
-          buildListTile(context, (context) => Placeholder(), Icons.security, 'Keamanan'),
-          buildListTile(context, (context) => Placeholder(), Icons.privacy_tip, 'Privasi'),
-          buildListTile(context, (context) => Placeholder(), Icons.help, 'Bantuan dan Dukungan'),
-          buildListTile(context, (context) => Placeholder(), Icons.info, 'Tentang Aplikasi'),
+          buildListTile(context, (context) => Placeholder(), 'Keamanan dan Akun'),
+          buildListTile(context, (context) => Placeholder(), 'Alamat Saya'),
+          buildListTile(context, (context) => Placeholder(), 'Kartu/Rekening'),
+          buildListTile(context, (context) => Placeholder(), 'Pengaturan Chat'),
+          buildListTile(context, (context) => Placeholder(), 'Pengaturan Notifikasi'),
+          buildListTile(context, (context) => Placeholder(), 'Bahasa'),
+          buildListTile(context, (context) => Placeholder(), 'Pusat Bantuan'),
+          buildListTile(context, (context) => Placeholder(), 'Informasi Aplikasi'),
         ],
       ),
     );
   }
 
-  static Widget buildListTile(BuildContext context, WidgetBuilder pagebuilder, icon, String title) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-      onTap: () {
-        print('Navigating to $pagebuilder page...');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: pagebuilder, // Ganti dengan halaman yang sesuai
-          ),
-        );
-      },
+  static Widget buildListTile(BuildContext context, WidgetBuilder pagebuilder, String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        trailing: const Icon(Icons.arrow_forward, size: 16),
+        onTap: () {
+          print('Navigating to $pagebuilder page...');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: pagebuilder, // Ganti dengan halaman yang sesuai
+            ),
+          );
+        },
+      ),
     );
   }
 
