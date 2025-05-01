@@ -1,35 +1,16 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shopping App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: const FavoritesPage(),
-    );
-  }
-}
+import 'package:tubes_kelompok_7/component/bottomNavbar.dart';
+import 'package:tubes_kelompok_7/component/bottomNavbarHelper.dart';
+import 'package:tubes_kelompok_7/pages/home.dart';
 
 class FavoritesPage extends StatefulWidget {
-  const FavoritesPage({Key? key}) : super(key: key);
+  const FavoritesPage({super.key});
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  int _selectedIndex = 2; // Set Favorite as selected in bottom navigation
-  
   final List<Map<String, dynamic>> _favoriteItems = [
     {
       'name': 'Sepatu krem tail pink',
@@ -61,12 +42,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
     },
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   void _addToCart(int index) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -84,7 +59,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            if(Navigator.canPop(context)){
+              Navigator.pop(context);
+            }
+            else{
+              Navigator.pushReplacementNamed(context, '/');
+            }
+          },
         ),
         title: const Text(
           'Favourite',
@@ -140,35 +122,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Transaksi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorit',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        onTap: _onItemTapped,
+      bottomNavigationBar: CustomBottomNavBar (
+        currentIndex: 2, 
+        onTap: (index) => Bottomnavbarhelper.handleBottomNavTap(context, index, 2)
       ),
     );
   }
