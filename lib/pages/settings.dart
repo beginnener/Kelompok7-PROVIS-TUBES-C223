@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/pages/address.dart';
+import 'package:tubes_kelompok_7/pages/appinfo.dart';
+import 'package:tubes_kelompok_7/pages/chatSetting.dart';
+import 'package:tubes_kelompok_7/pages/help.dart';
+import 'package:tubes_kelompok_7/pages/language.dart';
+import 'package:tubes_kelompok_7/pages/notificationSettin.dart';
+import 'package:tubes_kelompok_7/pages/rekening.dart';
 import 'package:tubes_kelompok_7/pages/security_account.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -27,12 +33,12 @@ class SettingsPage extends StatelessWidget {
         children: [
           buildListTile(context, (context) => SecurityAccountPage(), 'Keamanan dan Akun'),
           buildListTile(context, (context) => AddressPage(), 'Alamat Saya'),
-          buildListTile(context, (context) => Placeholder(), 'Kartu/Rekening'),
-          buildListTile(context, (context) => Placeholder(), 'Pengaturan Chat'),
-          buildListTile(context, (context) => Placeholder(), 'Pengaturan Notifikasi'),
-          buildListTile(context, (context) => Placeholder(), 'Bahasa'),
-          buildListTile(context, (context) => Placeholder(), 'Pusat Bantuan'),
-          buildListTile(context, (context) => Placeholder(), 'Informasi Aplikasi'),
+          buildListTile(context, (context) => RekeningPage(), 'Kartu/Rekening'),
+          buildListTile(context, (context) => ChatSettingPage(), 'Pengaturan Chat'),
+          buildListTile(context, (context) => NotificationSettingPage(), 'Pengaturan Notifikasi'),
+          buildListTile(context, (context) => LanguagePage(), 'Bahasa'),
+          buildListTile(context, (context) => HelpPage(), 'Pusat Bantuan'),
+          buildListTile(context, (context) => AppInformationPage(), 'Informasi Aplikasi'),
           ListTile(
             title: const Text(
               'Keluar akun',
