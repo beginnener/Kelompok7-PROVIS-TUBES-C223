@@ -28,14 +28,14 @@ class HomePage extends StatelessWidget {
       'price': 'Rp100.000,-',
       'rating': 5.0,
       'reviews': 100,
-      'image': 'https://via.placeholder.com/100x100?text=Sepatu'
+      'image': 'https://via.placeholder.com/100x100?text=Sepatu',
     },
     {
       'name': 'Senter',
       'price': 'Rp200.000,-',
       'rating': 5.0,
       'reviews': 10,
-      'image': 'https://via.placeholder.com/100x100?text=Senter'
+      'image': 'https://via.placeholder.com/100x100?text=Senter',
     },
   ];
 
@@ -71,7 +71,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(width: 8),
                 Icon(Icons.shopping_cart_outlined),
                 SizedBox(width: 12),
@@ -79,37 +78,41 @@ class HomePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
-            // Promo Banner
+
+            // Promo Banner (Updated)
             Container(
-              padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.teal.shade700,
                 borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Solusi healing tanpa pusing",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(height: 5),
-                        Text("dapatkan promo untuk pengguna baru →",
-                            style: TextStyle(color: Colors.white70)),
-                      ],
-                    ),
-                  ),
-                  Image.network(
-                    'https://via.placeholder.com/100x100?text=Tenda',
-                    width: 100,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 8,
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Stack(
+                  children: [
+                    Image.network(
+                      'assets/images/banner.png',
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+
             SizedBox(height: 20),
             // Catalog
             Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
