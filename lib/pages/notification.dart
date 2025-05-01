@@ -10,18 +10,33 @@ class NotificationPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            if(Navigator.canPop(context)) {
-              Navigator.pop(context); // kembali ke halaman sebelumnya
-            } else {
-              Navigator.pushReplacementNamed(context, '/'); // ganti dengan route home
-            }
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context); // kembali ke halaman sebelumnya
+          } else {
+            Navigator.pushReplacementNamed(context, '/'); // ganti dengan route home
+          }
           },
         ),
         title: const Text('Notifikasi'),
         backgroundColor: Colors.white,
         elevation: 1.0,
+        actions: [
+          TextButton(
+            onPressed: () {
+              // aksi ketika tombol "belum dibaca" ditekan
+              ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Tombol "Belum Dibaca" ditekan')),
+              );
+            },
+            child: const Text(
+              'Belum Dibaca (0)',
+              style: TextStyle(fontSize: 14 ,color: Colors.blue),
+            ),
+          ),
+        ],
       ),
-      body: ListView.builder(
+      body: 
+      ListView.builder(
         itemCount: 20, // jumlah notifikasi
         itemBuilder: (context, index) {
             return Column(
