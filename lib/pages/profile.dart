@@ -8,8 +8,9 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // cara pake modular bottom navbar 
       bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 4, // Indeks halaman Profil
+        currentIndex: 4, // Indeks halaman Profil, angkanya liat dari urutan keberapa si icon (start dari 0)
         onTap: (index) => Bottomnavbarhelper.handleBottomNavTap(context, index, 4),
       ),
       body: Column(
