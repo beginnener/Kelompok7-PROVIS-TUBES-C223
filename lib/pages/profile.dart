@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/component/bottomNavbar.dart';
 import 'package:tubes_kelompok_7/component/bottomNavbarHelper.dart';
+import 'package:tubes_kelompok_7/pages/settings.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -41,12 +42,12 @@ class ProfilePage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                buildListTile(Icons.receipt, 'Transaksi'),
-                buildListTile(Icons.settings, 'Pengaturan'),
-                buildListTile(Icons.favorite_border, 'Favorit Saya'),
-                buildListTile(Icons.chat_bubble_outline, 'Chat'),
-                buildListTile(Icons.info_outline, 'Info Berbelanja'),
-                buildListTile(Icons.lock_outline, 'Kebijakan Privasi'),
+                buildListTile(context, (context) => Placeholder(), Icons.receipt, 'Transaksi'),
+                buildListTile(context, (context) => SettingsPage(), Icons.settings, 'Pengaturan'),
+                buildListTile(context, (context) => Placeholder(), Icons.favorite_border, 'Favorit Saya'),
+                buildListTile(context, (context) => Placeholder(), Icons.chat_bubble_outline, 'Chat'),
+                buildListTile(context, (context) => Placeholder(), Icons.info_outline, 'Info Berbelanja'),
+                buildListTile(context, (context) => Placeholder(), Icons.lock_outline, 'Kebijakan Privasi'),
                 ListTile(
                   title: const Text(
                     'Keluar akun',
@@ -64,13 +65,18 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  static Widget buildListTile(IconData icon, String title) {
+  static Widget buildListTile(BuildContext context, WidgetBuilder pagebuilder, IconData icon, String title) {
     return ListTile(
       leading: Icon(icon),
       title: Text(title),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: () {
-        // Navigasi ke halaman terkait
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: pagebuilder, // ganti dengan halaman yang sesuai
+          ),
+        );
       },
     );
   }
