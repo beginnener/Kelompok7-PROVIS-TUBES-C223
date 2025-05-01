@@ -15,6 +15,7 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          // container untuk profile
           Container(
             color: Colors.teal,
             padding: const EdgeInsets.only(top: 60, bottom: 20),
@@ -22,8 +23,8 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               children: const [
                 CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.grey,
+                    radius: 50,
+                    backgroundImage: NetworkImage('https://via.placeholder.com/50'), // menggunakan placeholder image dari internet
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -31,7 +32,7 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 Text(
-                  'lalalanama@gmail.com',
+                  'Username@gmail.com',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ],
@@ -46,14 +47,13 @@ class ProfilePage extends StatelessWidget {
                 buildListTile(Icons.chat_bubble_outline, 'Chat'),
                 buildListTile(Icons.info_outline, 'Info Berbelanja'),
                 buildListTile(Icons.lock_outline, 'Kebijakan Privasi'),
-                const Divider(),
                 ListTile(
                   title: const Text(
                     'Keluar akun',
                     style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    // aksi logout
+                    // ganti dengan aksi logout
                   },
                 ),
               ],
