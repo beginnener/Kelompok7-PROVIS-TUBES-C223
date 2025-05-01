@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_kelompok_7/pages/address.dart';
+import 'package:tubes_kelompok_7/pages/security_account.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -23,14 +25,26 @@ class SettingsPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          buildListTile(context, (context) => Placeholder(), 'Keamanan dan Akun'),
-          buildListTile(context, (context) => Placeholder(), 'Alamat Saya'),
+          buildListTile(context, (context) => SecurityAccountPage(), 'Keamanan dan Akun'),
+          buildListTile(context, (context) => AddressPage(), 'Alamat Saya'),
           buildListTile(context, (context) => Placeholder(), 'Kartu/Rekening'),
           buildListTile(context, (context) => Placeholder(), 'Pengaturan Chat'),
           buildListTile(context, (context) => Placeholder(), 'Pengaturan Notifikasi'),
           buildListTile(context, (context) => Placeholder(), 'Bahasa'),
           buildListTile(context, (context) => Placeholder(), 'Pusat Bantuan'),
           buildListTile(context, (context) => Placeholder(), 'Informasi Aplikasi'),
+          ListTile(
+            title: const Text(
+              'Keluar akun',
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              // ganti dengan aksi logout
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Logout')),
+              );
+            },
+          ),
         ],
       ),
     );

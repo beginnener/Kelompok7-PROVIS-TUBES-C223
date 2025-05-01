@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/component/bottomNavbar.dart';
 import 'package:tubes_kelompok_7/component/bottomNavbarHelper.dart';
+import 'package:tubes_kelompok_7/pages/favorit.dart';
 import 'package:tubes_kelompok_7/pages/settings.dart';
+import 'package:tubes_kelompok_7/pages/voucher.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -43,8 +45,9 @@ class ProfilePage extends StatelessWidget {
             child: ListView(
               children: [
                 buildListTile(context, (context) => Placeholder(), Icons.receipt, 'Transaksi'),
+                buildListTile(context, (context) => VoucherListScreen(), Icons.discount, 'Voucher Saya'),
                 buildListTile(context, (context) => SettingsPage(), Icons.settings, 'Pengaturan'),
-                buildListTile(context, (context) => Placeholder(), Icons.favorite_border, 'Favorit Saya'),
+                buildListTile(context, (context) => FavoritesPage(), Icons.favorite_border, 'Favorit Saya'),
                 buildListTile(context, (context) => Placeholder(), Icons.chat_bubble_outline, 'Chat'),
                 buildListTile(context, (context) => Placeholder(), Icons.info_outline, 'Info Berbelanja'),
                 buildListTile(context, (context) => Placeholder(), Icons.lock_outline, 'Kebijakan Privasi'),
@@ -54,7 +57,9 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    // ganti dengan aksi logout
+                      ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Logout')),
+                    );
                   },
                 ),
               ],
