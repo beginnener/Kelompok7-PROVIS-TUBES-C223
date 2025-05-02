@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
-    {'label': 'Promo', 'icon': Icons.percent, 'color': Colors.redAccent},
-    {'label': 'Tenda', 'icon': Icons.terrain, 'color': Colors.greenAccent},
-    {'label': 'Sepatu', 'icon': Icons.hiking, 'color': Colors.blueAccent},
-    {'label': 'Tas', 'icon': Icons.backpack, 'color': Colors.purpleAccent},
-    {'label': 'Lainnya', 'icon': Icons.grid_view, 'color': Colors.tealAccent},
+    {'label': 'Promo', 'imagePath': 'assets/images/logo-promo-home.png', 'color': Colors.redAccent},
+    {'label': 'Tenda', 'imagePath': 'assets/images/logo-tenda-home.png', 'color': Colors.greenAccent},
+    {'label': 'Sepatu', 'imagePath': 'assets/images/logo-sepatu-home.png', 'color': Colors.blueAccent},
+    {'label': 'Tas', 'imagePath': 'assets/images/logo-tas-home.png', 'color': Colors.purpleAccent},
+    {'label': 'Lainnya', 'imagePath': 'assets/images/logo-lainnya.png', 'color': Colors.tealAccent},
   ];
 
   final List<Map<String, dynamic>> popularItems = [
@@ -28,14 +28,31 @@ class HomePage extends StatelessWidget {
       'price': 'Rp100.000,-',
       'rating': 5.0,
       'reviews': 100,
-      'image': 'https://via.placeholder.com/100x100?text=Sepatu',
+      'imagePath': 'assets/images/hiking_shoes.png',
     },
     {
       'name': 'Senter',
       'price': 'Rp200.000,-',
       'rating': 5.0,
       'reviews': 10,
-      'image': 'https://via.placeholder.com/100x100?text=Senter',
+      'imagePath': 'assets/images/flashlight.jpg',
+    },
+  ];
+
+  final List<Map<String, dynamic>> bundleItems = [
+    {
+      'name': 'Bundle Hemat',
+      'price': 'Rp250.000,-',
+      'imagePath': 'assets/images/hat.png',
+      'rating': 5.0,
+      'reviews': 50,
+    },
+    {
+      'name': 'Bundle Lengkap',
+      'price': 'Rp500.000,-',
+      'imagePath': 'assets/images/hat.png',
+      'rating': 4.5,
+      'reviews': 70,
     },
   ];
 
@@ -46,7 +63,6 @@ class HomePage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // Search and Icons Row
             Row(
               children: [
                 Expanded(
@@ -78,8 +94,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
-
-            // Promo Banner (Updated)
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -95,7 +109,7 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
                   children: [
-                    Image.network(
+                    Image.asset(
                       'assets/images/banner.png',
                       height: 200,
                       width: double.infinity,
@@ -112,91 +126,53 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-
+            
             SizedBox(height: 20),
-            // Catalog
-            Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Wrap(
+              alignment: WrapAlignment.start,
+              spacing: 0, // Jarak horizontal antar logo
+              runSpacing: 16, // Jarak vertikal antar logo
               children: categories.map((cat) {
                 return Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: cat['color'],
-                      child: Icon(cat['icon'], color: Colors.white),
+                    Container(
+                      width: 95,
+                      height: 95,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      padding: EdgeInsets.all(1),
+                      child: Image.asset(
+                        cat['imagePath'],
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    SizedBox(height: 6),
-                    Text(cat['label']),
                   ],
                 );
               }).toList(),
             ),
+
             SizedBox(height: 20),
-            // Popular
-            Text("Popular", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text("Popular", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: popularItems.map((item) {
-                  return Container(
-                    width: 160,
-                    margin: EdgeInsets.only(right: 16),
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.network(item['image'], height: 80),
-                        SizedBox(height: 8),
-                        Text(item['name'], style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(item['price'], style: TextStyle(color: Colors.black)),
-                        Row(
-                          children: [
-                            Icon(Icons.star, size: 16, color: Colors.orange),
-                            SizedBox(width: 4),
-                            Text("${item['rating']} (${item['reviews']} review)"),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.teal,
-                            shape: StadiumBorder(),
-                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                          ),
-                          child: Text("Add To Cart", style: TextStyle(fontSize: 12)),
-                        )
-                      ],
-                    ),
-                  );
-                }).toList(),
+                children: popularItems.map((item) => _buildProductCard(item)).toList(),
               ),
             ),
+
             SizedBox(height: 20),
-            // Bundle Sewa Section
-            Text("Bundle Sewa Camping", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text("Bundle Sewa Camping", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  _buildBundleCard(
-                    image: 'https://via.placeholder.com/100x100?text=Bundle+1',
-                    title: 'Bundle Hemat',
-                    price: 'Rp250.000,-',
-                  ),
-                  _buildBundleCard(
-                    image: 'https://via.placeholder.com/100x100?text=Bundle+2',
-                    title: 'Bundle Lengkap',
-                    price: 'Rp500.000,-',
-                  ),
-                ],
+                children: bundleItems.map((item) => _buildProductCard(item)).toList(),
               ),
             ),
           ],
@@ -216,31 +192,76 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBundleCard({required String image, required String title, required String price}) {
+  Widget _buildProductCard(Map<String, dynamic> item) {
     return Container(
       width: 160,
       margin: EdgeInsets.only(right: 16),
-      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(image, height: 80),
-          SizedBox(height: 8),
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-          Text(price, style: TextStyle(color: Colors.black)),
-          SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.teal,
-              shape: StadiumBorder(),
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+            child: Image.asset(
+              item['imagePath'],
+              height: 168,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-            child: Text("Add To Cart", style: TextStyle(fontSize: 12)),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item['name'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(item['price'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                if (item.containsKey('rating'))
+                  Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.amber, size: 16),
+                      Text(
+                        ' ${item['rating']} (${item['reviews']} review)',
+                        style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                      ),
+                    ],
+                  ),
+                SizedBox(height: 3),
+                SizedBox(
+                  width: double.infinity,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20), // more rounded
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2), // smaller button
+                        minimumSize: Size(0, 28), // make sure it doesn't stretch
+                      ),
+                      child: const Text(
+                        "Add To Cart",
+                        style: TextStyle(fontSize: 11),
+                      ),
+                    ),
+                  ),
+
+                ),
+              ],
+            ),
           ),
         ],
       ),

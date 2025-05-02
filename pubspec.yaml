@@ -63,6 +63,22 @@ flutter:
     - assets/images/flashlight.jpg
     - assets/images/trekking_poles.jpg
     - assets/images/hat.png
+    - assets/images/logo-alat-makan.png
+    - assets/images/logo-bundle.png
+    - assets/images/logo-jaket.png
+    - assets/images/logo-lainnya.png
+    - assets/images/logo-lampu.png
+    - assets/images/logo-promo.png
+    - assets/images/logo-sepatu.png
+    - assets/images/logo-tenda.png
+    - assets/images/logo-topi.png
+    - assets/images/logo-tas.png
+    - assets/images/banner.png
+    - assets/images/sleeping-bag.png
+    - assets/images/logo-promo-home.png
+    - assets/images/logo-sepatu-home.png
+    - assets/images/logo-tenda-home.png
+    - assets/images/logo-tas-home.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
