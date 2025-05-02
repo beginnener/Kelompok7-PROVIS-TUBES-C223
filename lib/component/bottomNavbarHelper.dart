@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/pages/favorit.dart';
+import 'package:tubes_kelompok_7/pages/home.dart';
 import 'package:tubes_kelompok_7/pages/profile.dart';
 
 class Bottomnavbarhelper {
@@ -12,7 +13,7 @@ class Bottomnavbarhelper {
     switch (index) {
       case 0: // home
         print('Home tapped');
-        target = const Placeholder();
+        target = HomePage();
         break;
       case 1: // transaksi
         print('Transaksi tapped');

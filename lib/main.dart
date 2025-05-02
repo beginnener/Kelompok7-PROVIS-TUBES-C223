@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rental Outdoor App',
-      home: ProfilePage(),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
