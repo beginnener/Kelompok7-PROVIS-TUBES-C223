@@ -10,11 +10,16 @@ class NotificationSettingPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            if(Navigator.canPop(context)){
+              Navigator.pop(context);
+            }
+            else{
+              Navigator.pushReplacementNamed(context, '/');
+            }
           },
         ),
         title: const Text('Pengaturan Notifikasi'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Column(

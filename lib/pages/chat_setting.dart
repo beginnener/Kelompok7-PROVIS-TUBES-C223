@@ -7,8 +7,19 @@ class ChatSettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if(Navigator.canPop(context)){
+              Navigator.pop(context);
+            }
+            else{
+              Navigator.pushReplacementNamed(context, '/');
+            }
+          },
+        ),
         title: const Text('Pengaturan Chat'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

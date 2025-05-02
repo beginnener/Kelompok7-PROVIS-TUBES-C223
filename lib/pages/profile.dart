@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tubes_kelompok_7/component/bottomNavbar.dart';
-import 'package:tubes_kelompok_7/component/bottomNavbarHelper.dart';
+import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
+import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
 import 'package:tubes_kelompok_7/pages/favorit.dart';
 import 'package:tubes_kelompok_7/pages/settings.dart';
 import 'package:tubes_kelompok_7/pages/voucher.dart';

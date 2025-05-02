@@ -10,7 +10,11 @@ class HelpPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              Navigator.pushReplacementNamed(context, '/');
+            }
           },
         ),
         title: const Text('Pusat Bantuan'),

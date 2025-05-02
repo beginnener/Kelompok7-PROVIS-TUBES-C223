@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/pages/address.dart';
 import 'package:tubes_kelompok_7/pages/appinfo.dart';
-import 'package:tubes_kelompok_7/pages/chatSetting.dart';
+import 'package:tubes_kelompok_7/pages/chat_setting.dart';
 import 'package:tubes_kelompok_7/pages/help.dart';
 import 'package:tubes_kelompok_7/pages/language.dart';
-import 'package:tubes_kelompok_7/pages/notificationSettin.dart';
+import 'package:tubes_kelompok_7/pages/notification_setting.dart';
 import 'package:tubes_kelompok_7/pages/rekening.dart';
 import 'package:tubes_kelompok_7/pages/security_account.dart';
 
