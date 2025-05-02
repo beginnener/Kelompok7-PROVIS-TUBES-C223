@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
+import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
 import 'searchPage.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  HomePage({super.key});
+  
   final List<Map<String, dynamic>> categories = [
     {'label': 'Promo', 'imagePath': 'assets/images/logo-promo-home.png', 'color': Colors.redAccent},
     {'label': 'Tenda', 'imagePath': 'assets/images/logo-tenda-home.png', 'color': Colors.greenAccent},
@@ -178,16 +184,11 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.teal,
-        unselectedItemColor: Colors.black54,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: "Transaksi"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: "Favorit"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: "Chat"),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Profil"),
-        ],
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: 0, 
+        onTap: (index) {
+          Bottomnavbarhelper.handleBottomNavTap(context, index, 0);
+        },
       ),
     );
   }

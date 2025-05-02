@@ -4,80 +4,8 @@ import 'voucher_bni.dart';
 import 'voucher_bri.dart';
 import 'voucher_mandiri.dart';
 
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Voucher List',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Roboto',
-      ),
-      home: const AndroidDeviceFrame(
-        child: VoucherListScreen(),
-      ),
-    );
-  }
-}
-
-class AndroidDeviceFrame extends StatelessWidget {
-  final Widget child;
-  
-  const AndroidDeviceFrame({Key? key, required this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // Android status bar
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            color: Colors.black,
-            height: 24,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  '9:41',
-                  style: TextStyle(color: Colors.white, fontSize: 12),
-                ),
-                Row(
-                  children: const [
-                    Icon(Icons.signal_cellular_4_bar, color: Colors.white, size: 14),
-                    SizedBox(width: 4),
-                    Icon(Icons.wifi, color: Colors.white, size: 14),
-                    SizedBox(width: 4),
-                    Icon(Icons.battery_full, color: Colors.white, size: 14),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        // Content with padding to account for status bar
-        Padding(
-          padding: const EdgeInsets.only(top: 24),
-          child: child,
-        ),
-      ],
-    );
-  }
-}
-
 class VoucherListScreen extends StatelessWidget {
-  const VoucherListScreen({Key? key}) : super(key: key);
+  const VoucherListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +37,12 @@ class VoucherListScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            // Handle back button press
+            if(Navigator.canPop(context)){
+              Navigator.pop(context);
+            }
+            else{
+              Navigator.pushReplacementNamed(context, '/');
+            }
           },
         ),
         title: const Text(
