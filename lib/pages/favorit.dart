@@ -216,7 +216,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     child: ElevatedButton(
                       onPressed: () => _addToCart(index),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: Colors.teal,
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
@@ -228,6 +228,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
+                          color: Colors.white,
                         ),
                       ),
                     ),
