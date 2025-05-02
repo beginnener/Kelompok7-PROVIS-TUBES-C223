@@ -75,125 +75,137 @@ class _SearchPageState extends State<SearchPage> {
     final isSearching = _focusNode.hasFocus && searchText.isNotEmpty;
 
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          controller: _controller,
-          focusNode: _focusNode,
-          onChanged: _updateSuggestions,
-          decoration: InputDecoration(
-            hintText: 'Cari produk camping...',
-            prefixIcon: Icon(Icons.search),
-            suffixIcon: searchText.isNotEmpty
-                ? IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: () {
-                      _controller.clear();
-                      _updateSuggestions('');
-                    },
-                  )
-                : null,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // 🔽 Konten utama (di bawah)
+            Padding(
+              padding: const EdgeInsets.only(top: 80), // agar tidak ketiban search bar
+              child: ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  // Section: Rekomendasi
+                  Text("Rekomendasi", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 12),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: recommendations.map((item) {
+                        return Container(
+                          width: 160,
+                          margin: EdgeInsets.only(right: 16),
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.network(item['image'], height: 80),
+                              SizedBox(height: 8),
+                              Text(item['name'], style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(item['price'], style: TextStyle(color: Colors.black)),
+                              SizedBox(height: 8),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.teal,
+                                  shape: StadiumBorder(),
+                                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                ),
+                                child: Text("Add To Cart", style: TextStyle(fontSize: 12)),
+                              )
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+
+                  // Section: Kategori
+                  Text("Kategori", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 12),
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 4,
+                    physics: NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    children: categories.map((cat) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        padding: EdgeInsets.all(1),
+                        child: Center(
+                          child: Image.asset(cat['image'], height: 168),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 0),
-          ),
+
+            // 🔍 Search bar + overlay dropdown (di atas)
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextField(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    onChanged: _updateSuggestions,
+                    decoration: InputDecoration(
+                      hintText: 'Cari produk camping...',
+                      prefixIcon: Icon(Icons.search),
+                      suffixIcon: searchText.isNotEmpty
+                          ? IconButton(
+                              icon: Icon(Icons.clear),
+                              onPressed: () {
+                                _controller.clear();
+                                _updateSuggestions('');
+                              },
+                            )
+                          : null,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 0),
+                    ),
+                  ),
+                ),
+                if (isSearching)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Material(
+                      elevation: 4,
+                      borderRadius: BorderRadius.circular(8),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: 250,
+                        ),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: filteredSuggestions.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(filteredSuggestions[index]),
+                              onTap: () => _onSuggestionTap(filteredSuggestions[index]),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ],
         ),
-        backgroundColor: Colors.white, // Ganti background menjadi putih
-        elevation: 0, // Hilangkan shadow
-      ),
-      body: Stack(
-        children: [
-          // Main content
-          ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              // Section: Rekomendasi (scroll horizontal)
-              Text("Rekomendasi", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 12),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: recommendations.map((item) {
-                    return Container(
-                      width: 160,
-                      margin: EdgeInsets.only(right: 16),
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.network(item['image'], height: 80),
-                          SizedBox(height: 8),
-                          Text(item['name'], style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text(item['price'], style: TextStyle(color: Colors.black)),
-                          SizedBox(height: 8),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.teal,
-                              shape: StadiumBorder(),
-                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                            ),
-                            child: Text("Add To Cart", style: TextStyle(fontSize: 12)),
-                          )
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-              SizedBox(height: 24),
-
-              // Section: Kategori Grid
-              Text("Kategori", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 12),
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 4,
-                physics: NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                children: categories.map((cat) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    padding: EdgeInsets.all(1),
-                    child: Center(
-                      child: Image.asset(cat['image'], height: 168),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-
-          // Autocomplete Dropdown (ditempatkan tepat di bawah search bar)
-          if (isSearching)
-            Positioned(
-              left: 16,
-              right: 16,
-              top: kToolbarHeight + 8, // Posisikan tepat dibawah search bar
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: filteredSuggestions.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(filteredSuggestions[index]),
-                      onTap: () => _onSuggestionTap(filteredSuggestions[index]),
-                    );
-                  },
-                ),
-              ),
-            ),
-        ],
       ),
     );
   }
