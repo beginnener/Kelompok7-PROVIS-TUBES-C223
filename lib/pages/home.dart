@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
-import 'searchPage.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+import 'package:tubes_kelompok_7/pages/searchPage.dart';
+import 'package:tubes_kelompok_7/pages/sepatu.dart';
+import 'package:tubes_kelompok_7/pages/promo.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -113,22 +101,11 @@ class HomePage extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/images/banner.png',
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                      ),
-                    ),
-                  ],
+                child: Image.asset(
+                  'assets/images/banner.png',
+                  height: 200,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -136,52 +113,66 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-            GridView.count(
-              crossAxisCount: 5, // ✅ Bagi 5 item per baris
-              shrinkWrap: true,  // ✅ Biar gridnya nge-fit di ListView
-              physics: NeverScrollableScrollPhysics(), // ✅ Biar scrollnya tetap pake ListView, bukan Grid
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 8,
-              children: categories.map((cat) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 1, // ✅ Biar kotaknya tetap persegi
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(16),
+              GridView.count(
+                crossAxisCount: 5,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 8,
+                children: categories.map((cat) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (cat['label'] == 'Promo') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PromoPage()),
+                        );
+                      } else if (cat['label'] == 'Sepatu') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SepatuPage()),
+                        );
+                      }
+                    },
+
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            padding: EdgeInsets.all(1),
+                            child: Image.asset(
+                              cat['imagePath'],
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                         ),
-                        padding: EdgeInsets.all(1),
-                        child: Image.asset(
-                          cat['imagePath'],
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+                      ],
                     ),
-                  ],
-                );
-              }).toList(),
-            ),
+                  );
+                }).toList(),
+              ),
+
 
             SizedBox(height: 20),
-            // Section: Popular
             Text("Popular", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
             GridView.count(
-              crossAxisCount: 2, // ✅ 2 kolom
+              crossAxisCount: 2,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.7, // ✅ Atur rasio biar nggak terlalu tinggi
+              childAspectRatio: 0.7,
               children: popularItems.map((item) => _buildProductCard(item)).toList(),
             ),
 
             SizedBox(height: 20),
-
-            // Section: Bundle
             Text("Bundle Sewa Camping", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
             GridView.count(
@@ -193,7 +184,6 @@ class HomePage extends StatelessWidget {
               childAspectRatio: 0.7,
               children: bundleItems.map((item) => _buildProductCard(item)).toList(),
             ),
-
           ],
         ),
       ),
@@ -209,7 +199,6 @@ class HomePage extends StatelessWidget {
   Widget _buildProductCard(Map<String, dynamic> item) {
     return Container(
       width: 160,
-      margin: EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -225,7 +214,6 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Product Image + Favorite Icon
           Expanded(
             flex: 3,
             child: Stack(
@@ -243,7 +231,7 @@ class HomePage extends StatelessWidget {
                   top: 5,
                   right: 5,
                   child: Icon(
-                    Icons.favorite_border, // default kosong
+                    Icons.favorite_border,
                     color: Colors.red,
                     size: 22,
                   ),
@@ -251,7 +239,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          // Product Details
           Expanded(
             flex: 2,
             child: Padding(
@@ -260,16 +247,8 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    item['name'],
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    item['price'],
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
+                  Text(item['name'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  Text(item['price'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   if (item.containsKey('rating'))
                     Row(
                       children: [
@@ -281,10 +260,10 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end, // posisi kanan
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
-                        width: 80, // atur jadi setengah dari lebar card (kira-kira)
+                        width: 80,
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
@@ -297,17 +276,12 @@ class HomePage extends StatelessWidget {
                           ),
                           child: const Text(
                             'add to cart',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),
                           ),
                         ),
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -316,5 +290,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
 }

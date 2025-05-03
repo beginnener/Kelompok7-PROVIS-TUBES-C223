@@ -162,9 +162,9 @@ class _SearchPageState extends State<SearchPage> {
                                               elevation: 0,
                                             ),
                                             child: Text(
-                                              'Add',
+                                              'add to cart',
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 11,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white,
                                               ),
