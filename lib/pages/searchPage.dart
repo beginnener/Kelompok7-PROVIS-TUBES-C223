@@ -39,17 +39,17 @@ class _SearchPageState extends State<SearchPage> {
     {
       'name': 'Tenda Dome',
       'price': 'Rp150.000,-',
-      'image': 'https://via.placeholder.com/100x100?text=Tenda'
+      'image': 'assets/images/hat.png'
     },
     {
       'name': 'Sleeping Bag',
       'price': 'Rp80.000,-',
-      'image': 'https://via.placeholder.com/100x100?text=Sleeping+Bag'
+      'image': 'assets/images/hat.png'
     },
     {
       'name': 'Kompor Portable',
       'price': 'Rp120.000,-',
-      'image': 'https://via.placeholder.com/100x100?text=Kompor'
+      'image': 'assets/images/hat.png'
     },
   ];
 
@@ -95,28 +95,87 @@ class _SearchPageState extends State<SearchPage> {
                         return Container(
                           width: 160,
                           margin: EdgeInsets.only(right: 16),
-                          padding: EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: Offset(0, 1),
+                              ),
+                            ],
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.network(item['image'], height: 80),
-                              SizedBox(height: 8),
-                              Text(item['name'], style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text(item['price'], style: TextStyle(color: Colors.black)),
-                              SizedBox(height: 8),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.teal,
-                                  shape: StadiumBorder(),
-                                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                              // Product Image
+                              ClipRRect(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+                                child: Image.network(
+                                  item['image'],
+                                  width: double.infinity,
+                                  height: 168,
+                                  fit: BoxFit.cover,
                                 ),
-                                child: Text("Add To Cart", style: TextStyle(fontSize: 12)),
-                              )
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Product Name
+                                    Text(
+                                      item['name'],
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    // Product Price
+                                    Text(
+                                      item['price'],
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    // Add to Cart Button (setengah lebar, kanan)
+                                    Row(
+                                      children: [
+                                        Spacer(),
+                                        SizedBox(
+                                          width: 70,
+                                          height: 28,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.teal,
+                                              padding: EdgeInsets.zero,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(50),
+                                              ),
+                                              elevation: 0,
+                                            ),
+                                            child: Text(
+                                              'Add',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         );
