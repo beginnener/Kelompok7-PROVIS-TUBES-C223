@@ -162,13 +162,6 @@ class _PromoPageState extends State<PromoPage> {
                               const Spacer(),
                               Row(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () => _toggleFavorite(index % items.length),
-                                    child: Icon(
-                                      item['isFavorite'] ? Icons.favorite : Icons.favorite_border,
-                                      color: Colors.black,
-                                    ),
-                                  ),
                                   const Spacer(),
                                   ElevatedButton(
                                     onPressed: () => _addToCart(item['name']),

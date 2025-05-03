@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 
-class SepatuPage extends StatefulWidget {
-  const SepatuPage({super.key});
+class TendaPage extends StatefulWidget {
+  const TendaPage({super.key});
 
   @override
-  State<SepatuPage> createState() => _SepatuPageState();
+  State<TendaPage> createState() => _TendaPageState();
 }
 
-class _SepatuPageState extends State<SepatuPage> {
+class _TendaPageState extends State<TendaPage> {
   List<Map<String, dynamic>> items = [
     {
-      'name': 'Sepatu Gunung A',
-      'price': 'Rp150.000,-',
-      'imagePath': 'assets/images/hiking_shoes.png',
+      'name': 'Tenda Gunung A',
+      'price': 'Rp450.000,-',
+      'imagePath': 'assets/images/hiking_shoes.png', // Placeholder image
       'rating': '4.8',
       'reviews': '25',
     },
     {
-      'name': 'Sepatu Gunung B',
-      'price': 'Rp200.000,-',
+      'name': 'Tenda Gunung B',
+      'price': 'Rp500.000,-',
       'imagePath': 'assets/images/hiking_shoes.png',
       'rating': '5.0',
       'reviews': '100',
     },
     {
-      'name': 'Sepatu Outdoor C',
-      'price': 'Rp180.000,-',
+      'name': 'Tenda Outdoor C',
+      'price': 'Rp480.000,-',
       'imagePath': 'assets/images/hiking_shoes.png',
       'rating': '4.5',
       'reviews': '60',
@@ -51,9 +51,7 @@ class _SepatuPageState extends State<SepatuPage> {
       } else if (_selectedSort == 'Terpopuler') {
         items.sort((a, b) => int.parse(b['reviews']).compareTo(int.parse(a['reviews'])));
       } else if (_selectedSort == 'Terbaru') {
-        // Sort berdasarkan waktu jika ada data tanggal, placeholder
-      } else {
-        // Paling Relevan (default) - tidak diurutkan
+        // Placeholder
       }
     });
   }
@@ -72,7 +70,7 @@ class _SepatuPageState extends State<SepatuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sepatu'),
+        title: const Text('Tenda'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0.5,
@@ -93,7 +91,7 @@ class _SepatuPageState extends State<SepatuPage> {
                   ),
                   child: DropdownButton<String>(
                     value: _selectedSort,
-                    underline: const SizedBox(), // Remove default underline
+                    underline: const SizedBox(),
                     onChanged: (newValue) {
                       setState(() {
                         _selectedSort = newValue!;
@@ -111,7 +109,6 @@ class _SepatuPageState extends State<SepatuPage> {
               ],
             ),
           ),
-
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(16),

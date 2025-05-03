@@ -3,6 +3,8 @@ import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
 import 'package:tubes_kelompok_7/pages/searchPage.dart';
 import 'package:tubes_kelompok_7/pages/sepatu.dart';
+import 'package:tubes_kelompok_7/pages/tenda.dart';
+import 'package:tubes_kelompok_7/pages/tas.dart';
 import 'package:tubes_kelompok_7/pages/promo.dart';
 
 class HomePage extends StatelessWidget {
@@ -132,8 +134,19 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(builder: (context) => SepatuPage()),
                         );
+                      } else if (cat['label'] == 'Tenda') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TendaPage()),
+                        );
+                      } else if (cat['label'] == 'Tas') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TasPage()),
+                        );
                       }
                     },
+
 
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -227,15 +240,7 @@ class HomePage extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                  top: 5,
-                  right: 5,
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.red,
-                    size: 22,
-                  ),
-                ),
+                
               ],
             ),
           ),

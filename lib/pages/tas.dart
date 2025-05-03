@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 
-class SepatuPage extends StatefulWidget {
-  const SepatuPage({super.key});
+class TasPage extends StatefulWidget {
+  const TasPage({super.key});
 
   @override
-  State<SepatuPage> createState() => _SepatuPageState();
+  State<TasPage> createState() => _TasPageState();
 }
 
-class _SepatuPageState extends State<SepatuPage> {
+class _TasPageState extends State<TasPage> {
   List<Map<String, dynamic>> items = [
     {
-      'name': 'Sepatu Gunung A',
-      'price': 'Rp150.000,-',
-      'imagePath': 'assets/images/hiking_shoes.png',
-      'rating': '4.8',
-      'reviews': '25',
+      'name': 'Tas Gunung A',
+      'price': 'Rp300.000,-',
+      'imagePath': 'assets/images/hiking_shoes.png', // Ganti gambar sesuai kebutuhan
+      'rating': '4.6',
+      'reviews': '20',
     },
     {
-      'name': 'Sepatu Gunung B',
-      'price': 'Rp200.000,-',
+      'name': 'Tas Ransel B',
+      'price': 'Rp350.000,-',
       'imagePath': 'assets/images/hiking_shoes.png',
-      'rating': '5.0',
-      'reviews': '100',
+      'rating': '4.9',
+      'reviews': '45',
     },
     {
-      'name': 'Sepatu Outdoor C',
-      'price': 'Rp180.000,-',
+      'name': 'Tas Carrier C',
+      'price': 'Rp400.000,-',
       'imagePath': 'assets/images/hiking_shoes.png',
-      'rating': '4.5',
-      'reviews': '60',
+      'rating': '4.7',
+      'reviews': '30',
     },
   ];
 
@@ -51,9 +51,7 @@ class _SepatuPageState extends State<SepatuPage> {
       } else if (_selectedSort == 'Terpopuler') {
         items.sort((a, b) => int.parse(b['reviews']).compareTo(int.parse(a['reviews'])));
       } else if (_selectedSort == 'Terbaru') {
-        // Sort berdasarkan waktu jika ada data tanggal, placeholder
-      } else {
-        // Paling Relevan (default) - tidak diurutkan
+        // Placeholder untuk fitur "terbaru"
       }
     });
   }
@@ -72,7 +70,7 @@ class _SepatuPageState extends State<SepatuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sepatu'),
+        title: const Text('Tas'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0.5,
@@ -93,7 +91,7 @@ class _SepatuPageState extends State<SepatuPage> {
                   ),
                   child: DropdownButton<String>(
                     value: _selectedSort,
-                    underline: const SizedBox(), // Remove default underline
+                    underline: const SizedBox(),
                     onChanged: (newValue) {
                       setState(() {
                         _selectedSort = newValue!;
@@ -111,7 +109,6 @@ class _SepatuPageState extends State<SepatuPage> {
               ],
             ),
           ),
-
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(16),
