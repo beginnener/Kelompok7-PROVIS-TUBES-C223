@@ -166,24 +166,34 @@ class HomePage extends StatelessWidget {
             ),
 
             SizedBox(height: 20),
+            // Section: Popular
             Text("Popular", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: popularItems.map((item) => _buildProductCard(item)).toList(),
-              ),
+            GridView.count(
+              crossAxisCount: 2, // ✅ 2 kolom
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.7, // ✅ Atur rasio biar nggak terlalu tinggi
+              children: popularItems.map((item) => _buildProductCard(item)).toList(),
             ),
 
             SizedBox(height: 20),
+
+            // Section: Bundle
             Text("Bundle Sewa Camping", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: bundleItems.map((item) => _buildProductCard(item)).toList(),
-              ),
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.7,
+              children: bundleItems.map((item) => _buildProductCard(item)).toList(),
             ),
+
           ],
         ),
       ),
@@ -208,67 +218,103 @@ class HomePage extends StatelessWidget {
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 2,
-            offset: const Offset(0, 1),
+            offset: Offset(0, 1),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-            child: Image.asset(
-              item['imagePath'],
-              height: 168,
-              width: double.infinity,
-              fit: BoxFit.cover,
+          // Product Image + Favorite Icon
+          Expanded(
+            flex: 3,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+                  child: Image.asset(
+                    item['imagePath'],
+                    height: double.infinity,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Icon(
+                    Icons.favorite_border, // default kosong
+                    color: Colors.red,
+                    size: 22,
+                  ),
+                ),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(item['name'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 1, overflow: TextOverflow.ellipsis),
-                Text(item['price'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                if (item.containsKey('rating'))
+          // Product Details
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    item['name'],
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    item['price'],
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  if (item.containsKey('rating'))
+                    Row(
+                      children: [
+                        Icon(Icons.star, color: Colors.amber, size: 16),
+                        Text(
+                          ' ${item['rating']} (${item['reviews']} review)',
+                          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                        ),
+                      ],
+                    ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end, // posisi kanan
                     children: [
-                      Icon(Icons.star, color: Colors.amber, size: 16),
-                      Text(
-                        ' ${item['rating']} (${item['reviews']} review)',
-                        style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                      SizedBox(
+                        width: 80, // atur jadi setengah dari lebar card (kira-kira)
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal,
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            elevation: 0,
+                          ),
+                          child: const Text(
+                            'add to cart',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                SizedBox(height: 3),
-                SizedBox(
-                  width: double.infinity,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), // more rounded
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2), // smaller button
-                        minimumSize: Size(0, 28), // make sure it doesn't stretch
-                      ),
-                      child: const Text(
-                        "Add To Cart",
-                        style: TextStyle(fontSize: 11),
-                      ),
-                    ),
-                  ),
 
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
   }
+
 }
