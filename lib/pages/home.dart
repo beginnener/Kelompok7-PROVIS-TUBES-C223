@@ -136,25 +136,28 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 0, // Jarak horizontal antar logo
-              runSpacing: 16, // Jarak vertikal antar logo
+            GridView.count(
+              crossAxisCount: 5, // ✅ Bagi 5 item per baris
+              shrinkWrap: true,  // ✅ Biar gridnya nge-fit di ListView
+              physics: NeverScrollableScrollPhysics(), // ✅ Biar scrollnya tetap pake ListView, bukan Grid
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 8,
               children: categories.map((cat) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      width: 95,
-                      height: 95,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      padding: EdgeInsets.all(1),
-                      child: Image.asset(
-                        cat['imagePath'],
-                        fit: BoxFit.contain,
+                    AspectRatio(
+                      aspectRatio: 1, // ✅ Biar kotaknya tetap persegi
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        padding: EdgeInsets.all(1),
+                        child: Image.asset(
+                          cat['imagePath'],
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ],

@@ -81,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             // 🔽 Konten utama (di bawah)
             Padding(
-              padding: const EdgeInsets.only(top: 80), // agar tidak ketiban search bar
+              padding: const EdgeInsets.only(top: 80),
               child: ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
@@ -140,7 +140,7 @@ class _SearchPageState extends State<SearchPage> {
                           color: Colors.grey.shade100,
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        padding: EdgeInsets.all(1),
+                        padding: EdgeInsets.all(0),
                         child: Center(
                           child: Image.asset(cat['image'], height: 168),
                         ),
@@ -156,27 +156,43 @@ class _SearchPageState extends State<SearchPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: TextField(
-                    controller: _controller,
-                    focusNode: _focusNode,
-                    onChanged: _updateSuggestions,
-                    decoration: InputDecoration(
-                      hintText: 'Cari produk camping...',
-                      prefixIcon: Icon(Icons.search),
-                      suffixIcon: searchText.isNotEmpty
-                          ? IconButton(
-                              icon: Icon(Icons.clear),
-                              onPressed: () {
-                                _controller.clear();
-                                _updateSuggestions('');
-                              },
-                            )
-                          : null,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
+                  child: Row(
+                    children: [
+                      // ⬅️ Tombol Back
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 0),
-                    ),
+                      SizedBox(width: 8),
+
+                      // 🔎 Search TextField
+                      Expanded(
+                        child: TextField(
+                          controller: _controller,
+                          focusNode: _focusNode,
+                          onChanged: _updateSuggestions,
+                          decoration: InputDecoration(
+                            hintText: 'Cari produk camping...',
+                            prefixIcon: Icon(Icons.search),
+                            suffixIcon: searchText.isNotEmpty
+                                ? IconButton(
+                                    icon: Icon(Icons.clear),
+                                    onPressed: () {
+                                      _controller.clear();
+                                      _updateSuggestions('');
+                                    },
+                                  )
+                                : null,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(vertical: 0),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 if (isSearching)
