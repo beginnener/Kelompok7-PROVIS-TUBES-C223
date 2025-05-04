@@ -6,6 +6,7 @@ import 'package:tubes_kelompok_7/pages/sepatu.dart';
 import 'package:tubes_kelompok_7/pages/tenda.dart';
 import 'package:tubes_kelompok_7/pages/tas.dart';
 import 'package:tubes_kelompok_7/pages/promo.dart';
+import 'package:tubes_kelompok_7/pages/kategori.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -143,6 +144,11 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => TasPage()),
+                        );
+                      } else if (cat['label'] == 'Lainnya') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => KategoriPage()),
                         );
                       }
                     },
