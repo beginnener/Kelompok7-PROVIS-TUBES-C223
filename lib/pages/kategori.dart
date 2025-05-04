@@ -95,15 +95,18 @@ class KategoriPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      cat['image'],
-                      width: 140,
-                      height: 140,
-                      fit: BoxFit.contain,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          cat['image'],
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 8),
                   ],
                 ),
+
               ),
             );
           }).toList(),
