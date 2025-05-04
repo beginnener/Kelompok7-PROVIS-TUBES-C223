@@ -59,10 +59,7 @@ flutter:
 
 
   assets:
-    - assets/images/hiking_shoes.png
-    - assets/images/flashlight.jpg
     - assets/images/trekking_poles.jpg
-    - assets/images/hat.png
     - assets/images/logo-alat-makan.png
     - assets/images/logo-bundle.png
     - assets/images/logo-jaket.png
@@ -79,6 +76,10 @@ flutter:
     - assets/images/logo-sepatu-home.png
     - assets/images/logo-tenda-home.png
     - assets/images/logo-tas-home.png
+    - assets/images/sepatu.png
+    - assets/images/senter.jpg
+    - assets/images/topi.png
+    
 
   # To add assets to your application, add an assets section, like this:
   # assets:
