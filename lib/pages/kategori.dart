@@ -73,7 +73,7 @@ class KategoriPage extends StatelessWidget {
               controller: scrollController,
               crossAxisCount: 4,
               mainAxisSpacing: 0,
-              crossAxisSpacing: 16,
+              crossAxisSpacing: 32,
               children: categories.map((cat) {
                 return GestureDetector(
                   onTap: () {
@@ -132,7 +132,7 @@ class KategoriPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.all(2.0),
+                            padding: const EdgeInsets.all(0),
                             child: Image.asset(
                               cat['image'],
                               fit: BoxFit.contain,
