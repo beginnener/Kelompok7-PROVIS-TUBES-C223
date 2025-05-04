@@ -51,7 +51,7 @@ class AppInformationPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Kelompok 7 - Pemrograman Mobile',
+              'Kelompok 7 C2 akt 2023- Pemrograman Visual dan Piranti Bergerak',
               style: TextStyle(fontSize: 16),
             ),
           ],
