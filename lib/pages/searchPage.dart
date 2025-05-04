@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'searchResult.dart'; 
+
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -60,6 +62,13 @@ class _SearchPageState extends State<SearchPage> {
           .where((item) => item.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
+
+    if (value.toLowerCase() == 'sepatu') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SearchResultPage()),
+      );
+    }
   }
 
   void _onSuggestionTap(String suggestion) {
@@ -68,6 +77,13 @@ class _SearchPageState extends State<SearchPage> {
       _updateSuggestions(suggestion);
       _focusNode.unfocus();
     });
+
+    if (suggestion.toLowerCase().contains('sepatu')) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SearchResultPage()),
+      );
+    }
   }
 
   @override
