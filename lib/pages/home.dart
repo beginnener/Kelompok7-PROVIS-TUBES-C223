@@ -146,11 +146,9 @@ class HomePage extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => TasPage()),
                         );
                       } else if (cat['label'] == 'Lainnya') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => KategoriPage()),
-                        );
+                        openKategoriSlider(context); // <-- BUKA SLIDER
                       }
+
                     },
 
 
