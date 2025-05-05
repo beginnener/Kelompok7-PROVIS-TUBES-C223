@@ -98,7 +98,7 @@ class _PromoPageState extends State<PromoPage> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                childAspectRatio: 0.7,
+                childAspectRatio: 0.56,
               ),
               itemCount: items.length * 2, // just duplicate to fill screen
               itemBuilder: (context, index) {

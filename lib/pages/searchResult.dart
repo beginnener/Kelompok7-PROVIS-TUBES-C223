@@ -77,9 +77,8 @@ class FilterSheet extends StatelessWidget {
   }
 }
 
-
 class _SearchResultPageState extends State<SearchResultPage> {
-  final TextEditingController _searchController = TextEditingController(text: "Sepatu");
+  String? selectedSortValue;
 
   List<Map<String, dynamic>> items = [
     {
@@ -111,6 +110,29 @@ class _SearchResultPageState extends State<SearchResultPage> {
     );
   }
 
+  String getSortLabel() {
+    switch (selectedSortValue) {
+      case 'relevan':
+        return 'Paling Relevan';
+      case 'terbaru':
+        return 'Terbaru';
+      case 'terpopuler':
+        return 'Terpopuler';
+      case 'termurah':
+        return 'Harga Terendah';
+      case 'termahal':
+        return 'Harga Tertinggi';
+      default:
+        return 'Sort';
+    }
+  }
+
+  void sortItems(String value) {
+    setState(() {
+      selectedSortValue = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +140,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
       body: SafeArea(
         child: Column(
           children: [
-            // 🔍 Search Bar + Back
             Padding(
               padding: const EdgeInsets.fromLTRB(12, 12, 12, 4),
               child: Row(
@@ -154,55 +175,162 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   ),
                 ],
               ),
-
             ),
 
-            // 🔘 Sort & Filter Buttons
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               child: Row(
                 children: [
+                  // Tombol Sort
                   Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => showMenu(
-                        context: context,
-                        position: const RelativeRect.fromLTRB(100, 120, 100, 100),
-                        items: [
-                          const PopupMenuItem(value: 'relevan', child: Text('Paling Relevan')),
-                          const PopupMenuItem(value: 'terbaru', child: Text('Terbaru')),
-                          const PopupMenuItem(value: 'terpopuler', child: Text('Terpopuler')),
-                          const PopupMenuItem(value: 'termurah', child: Text('Harga Terendah')),
-                          const PopupMenuItem(value: 'termahal', child: Text('Harga Tertinggi')),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
                         ],
-                      ).then((value) {
-                        if (value != null) {
-                          // Lakukan sorting sesuai value
+                      ),
+                      child: PopupMenuButton<String>(
+                        color: Colors.grey.shade100,
+                        onSelected: (value) {
+                          sortItems(value);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sort: $value')));
-                        }
-                      }),
-                      child: const Text("Sort by"),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                        },
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            value: 'relevan',
+                            child: SizedBox(
+                              width: 150,
+                              height: 40,
+                              child: Align(alignment: Alignment.centerLeft, child: Text('Paling Relevan')),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'terbaru',
+                            child: SizedBox(
+                              width: 150,
+                              height: 40,
+                              child: Align(alignment: Alignment.centerLeft, child: Text('Terbaru')),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'terpopuler',
+                            child: SizedBox(
+                              width: 150,
+                              height: 40,
+                              child: Align(alignment: Alignment.centerLeft, child: Text('Terpopuler')),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'termurah',
+                            child: SizedBox(
+                              width: 150,
+                              height: 40,
+                              child: Align(alignment: Alignment.centerLeft, child: Text('Harga Terendah')),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'termahal',
+                            child: SizedBox(
+                              width: 150,
+                              height: 40,
+                              child: Align(alignment: Alignment.centerLeft, child: Text('Harga Tertinggi')),
+                            ),
+                          ),
+                        ],
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: Colors.grey.shade300),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text(getSortLabel())),
                         ),
-                        builder: (context) => const FilterSheet(),
                       ),
 
-                      child: const Text("Filter"),
+
+                    ),
+                  ),
+
+                  const SizedBox(width: 8),
+
+                  // Tombol Filter
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                          side: BorderSide(color: Colors.grey.shade300),
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        onPressed: () {
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            barrierLabel: "Filter",
+                            transitionDuration: const Duration(milliseconds: 300),
+                            pageBuilder: (context, anim1, anim2) {
+                              return const SizedBox.shrink(); // Diperlukan walau tidak digunakan
+                            },
+                            transitionBuilder: (context, animation, secondaryAnimation, child) {
+                              final slideAnimation = Tween<Offset>(
+                                begin: const Offset(1, 0),
+                                end: Offset.zero,
+                              ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut));
+
+                              return SlideTransition(
+                                position: slideAnimation,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.85,
+                                    color: Colors.white,
+                                    child: const Scaffold(
+                                      backgroundColor: Colors.white,
+                                      body: SafeArea(child: FilterSheet()),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+
+                        child: const Text("Filter"),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
 
-            // 🛒 Product Grid
+            // Grid produk
             Expanded(
               child: GridView.builder(
                 padding: const EdgeInsets.all(16),
@@ -210,7 +338,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
-                  childAspectRatio: 0.7,
+                  childAspectRatio: 0.56,
                 ),
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -230,7 +358,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // 🖼️ Gambar Produk
                         Expanded(
                           flex: 3,
                           child: ClipRRect(
@@ -242,7 +369,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
                             ),
                           ),
                         ),
-                        // 📦 Info Produk
                         Expanded(
                           flex: 2,
                           child: Padding(
@@ -278,7 +404,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                                       ),
                                       child: const Text(
                                         'add to cart',
-                                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),
                                       ),
                                     ),
                                   ),

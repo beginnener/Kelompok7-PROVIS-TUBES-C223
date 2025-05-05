@@ -185,7 +185,7 @@ class HomePage extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.7,
+              childAspectRatio: 0.56,
               children: popularItems.map((item) => _buildProductCard(item)).toList(),
             ),
 
@@ -198,7 +198,7 @@ class HomePage extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.7,
+              childAspectRatio: 0.56,
               children: bundleItems.map((item) => _buildProductCard(item)).toList(),
             ),
           ],
