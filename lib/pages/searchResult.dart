@@ -9,6 +9,8 @@ class SearchResultPage extends StatefulWidget {
 
 class _SearchResultPageState extends State<SearchResultPage> {
   String? selectedSortValue;
+  final GlobalKey _sortButtonKey = GlobalKey();
+
   List<Map<String, dynamic>> items = [
     {
       'name': 'Sepatu Gunung A',
@@ -110,9 +112,9 @@ class _SearchResultPageState extends State<SearchResultPage> {
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               child: Row(
                 children: [
-                  // Tombol Sort (disamakan gaya dengan tombol Filter)
                   Expanded(
                     child: OutlinedButton(
+                      key: _sortButtonKey,
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                         side: BorderSide(color: Colors.grey.shade300),
@@ -120,9 +122,18 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       onPressed: () {
+                        final RenderBox button = _sortButtonKey.currentContext!.findRenderObject() as RenderBox;
+                        final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+                        final Offset position = button.localToGlobal(Offset.zero, ancestor: overlay);
+
                         showMenu(
                           context: context,
-                          position: RelativeRect.fromLTRB(100, 100, 0, 0),
+                          position: RelativeRect.fromLTRB(
+                            position.dx,
+                            position.dy + button.size.height,
+                            position.dx + button.size.width,
+                            0,
+                          ),
                           items: [
                             PopupMenuItem(value: 'relevan', child: Text('Paling Relevan')),
                             PopupMenuItem(value: 'terbaru', child: Text('Terbaru')),
@@ -142,7 +153,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   ),
                   const SizedBox(width: 8),
 
-                  // Tombol Filter
                   Expanded(
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
@@ -186,7 +196,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
                 ],
               ),
             ),
-
 
             Expanded(
               child: GridView.builder(
