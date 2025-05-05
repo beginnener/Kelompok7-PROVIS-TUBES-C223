@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/pages/favorit.dart';
 import 'package:tubes_kelompok_7/pages/home.dart';
 import 'package:tubes_kelompok_7/pages/profile.dart';
+import 'package:tubes_kelompok_7/pages/transaksi.dart';
 
 class Bottomnavbarhelper {
   static void handleBottomNavTap(BuildContext context, int index, int currentIndex) {
@@ -17,7 +18,7 @@ class Bottomnavbarhelper {
         break;
       case 1: // transaksi
         print('Transaksi tapped');
-        target = const Placeholder();
+        target = TransaksiPage();
         break;
       case 2: // favorit
         print('Favorite tapped');
