@@ -89,7 +89,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                           const Expanded(
                             child: TextField(
                               decoration: InputDecoration(
-                                hintText: 'nama produk',
+                                hintText: 'sepatu',
                                 border: InputBorder.none,
                               ),
                             ),
