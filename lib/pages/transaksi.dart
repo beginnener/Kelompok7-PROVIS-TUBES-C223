@@ -29,7 +29,12 @@ class TransaksiPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Transaksi"),
-        leading: Icon(Icons.arrow_back),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Column(
         children: [
