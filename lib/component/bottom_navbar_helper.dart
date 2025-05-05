@@ -5,6 +5,8 @@ import 'package:tubes_kelompok_7/pages/favorit.dart';
 import 'package:tubes_kelompok_7/pages/home.dart';
 import 'package:tubes_kelompok_7/pages/profile.dart';
 import 'package:tubes_kelompok_7/pages/transaksi.dart';
+import 'package:tubes_kelompok_7/pages/chat.dart';
+
 
 class Bottomnavbarhelper {
   static void handleBottomNavTap(BuildContext context, int index, int currentIndex) {
@@ -26,7 +28,7 @@ class Bottomnavbarhelper {
         break;
       case 3: // chat
         print('Chat tapped');
-        target = const Placeholder();
+        target = const ChatDetailPage();
         break;
       case 4: // profil
         print('Profile tapped');

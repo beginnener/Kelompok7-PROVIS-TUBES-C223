@@ -142,9 +142,10 @@ class HomePage extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => TendaPage()));
                     } else if (cat['label'] == 'Tas') {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => TasPage()));
-                    } else if (cat['label'] == 'Lainnya') {
+                    }else if (cat['label'] == 'Lainnya') {
                       openKategoriSlider(context);
                     }
+
                   },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -213,7 +214,6 @@ class HomePage extends StatelessWidget {
             builder: (context) => ProductDetailPage(),
           ),
         );
-
       },
       child: Container(
         width: 160,
@@ -298,13 +298,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  void openKategoriSlider(BuildContext context) {
-    // Implementasi navigasi atau modal
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Kategori lainnya belum tersedia.")),
     );
   }
 }

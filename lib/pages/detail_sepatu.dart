@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/pages/review.dart';
 import 'chat.dart';
+import 'cart.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -34,10 +35,11 @@ class ProductDetailPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Image.network(
+                        Image.asset(
                           'assets/images/hiking_shoes.png',
                           width: 80,
                           height: 80,
@@ -61,38 +63,29 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 16),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Warna', style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
+                    Text('Warna', style: TextStyle(fontWeight: FontWeight.bold)),
                     SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.teal),
-                            borderRadius: BorderRadius.circular(8),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.teal),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: EdgeInsets.all(4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            'assets/images/hiking_shoes.png',
+                            width: 40,
+                            height: 40,
                           ),
-                          padding: EdgeInsets.all(4),
-                          child: Row(
-                            children: [
-                              Image.network(
-                                'assets/images/hiking_shoes.png',
-                                width: 40,
-                                height: 40,
-                              ),
-                              SizedBox(width: 8),
-                              Text('Krem'),
-                            ],
-                          ),
-                        ),
-                      ],
+                          SizedBox(width: 8),
+                          Text('Krem'),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 16),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Ukuran', style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
+                    Text('Ukuran', style: TextStyle(fontWeight: FontWeight.bold)),
                     SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
@@ -145,15 +138,20 @@ class ProductDetailPage extends StatelessWidget {
                           child: OutlinedButton.icon(
                             onPressed: () {},
                             icon: Icon(Icons.chat_outlined),
-                            label: Text(''),
+                            label: SizedBox.shrink(),
                           ),
                         ),
                         SizedBox(width: 8),
                         Expanded(
                           child: OutlinedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CartPage()),
+                              );
+                            },
                             icon: Icon(Icons.shopping_cart_outlined),
-                            label: Text(''),
+                            label: SizedBox.shrink(),
                           ),
                         ),
                         SizedBox(width: 8),
@@ -187,10 +185,26 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: [
-          IconButton(icon: Icon(Icons.shopping_cart_outlined), onPressed: () {}),
-          IconButton(icon: Icon(Icons.share_outlined), onPressed: () {}),
+          IconButton(
+            icon: Icon(Icons.shopping_cart_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CartPage()),
+              );
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.share_outlined),
+            onPressed: () {},
+          ),
         ],
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -200,9 +214,20 @@ class ProductDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Image.network(
+            child: Image.asset(
               'assets/images/hiking_shoes.png',
               height: 200,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            child: Text(
+              'Rp100.000,-',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
+              ),
             ),
           ),
           Padding(
@@ -212,7 +237,6 @@ class ProductDetailPage extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
           ),
-          // Pindahkan bagian "1K review" ke bawah tulisan sepatu
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Row(
@@ -223,7 +247,6 @@ class ProductDetailPage extends StatelessWidget {
                 SizedBox(width: 4),
                 GestureDetector(
                   onTap: () {
-                    // Navigasi ke halaman review
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => FeedbackPage()),
@@ -238,11 +261,8 @@ class ProductDetailPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text(
-              'Deskripsi',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text('Deskripsi', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -274,7 +294,12 @@ class ProductDetailPage extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(Icons.shopping_cart_outlined),
-              onPressed: () => _showBottomSheet(context),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartPage()),
+                );
+              },
             ),
             Expanded(
               child: ElevatedButton(
