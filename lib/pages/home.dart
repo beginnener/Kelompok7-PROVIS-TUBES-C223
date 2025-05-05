@@ -181,9 +181,7 @@ class HomePage extends StatelessWidget {
               childAspectRatio: 0.56,
               children: popularItems.map((item) => _buildProductCard(context, item)).toList(),
             ),
-            SizedBox(height: 20),
-            Text("Bundle Sewa Camping", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
-            SizedBox(height: 12),
+          
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
