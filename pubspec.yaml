@@ -79,7 +79,9 @@ flutter:
     - assets/images/sepatu.png
     - assets/images/senter.jpg
     - assets/images/topi.png
-    
+    - assets/images/BCA.png
+    - assets/images/JNE.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

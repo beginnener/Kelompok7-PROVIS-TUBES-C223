@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'checkout.dart';
+
+import 'package:flutter/material.dart';
+import 'checkout.dart';
 
 class CartPage extends StatelessWidget {
   final List<CartItem> cartItems = [
@@ -11,26 +15,10 @@ class CartPage extends StatelessWidget {
       selected: true,
     ),
     CartItem(
-      name: 'Senter',
+      name: 'Topi abu',
       size: 'M',
       color: 'hitam',
-      price: 3000000,
-      image: 'assets/images/senter.jpg',
-      selected: true,
-    ),
-    CartItem(
-      name: 'Trekking pole',
-      size: 'M',
-      color: 'hitam',
-      price: 300000,
-      image: 'assets/images/trekking_poles.jpg',
-      selected: false,
-    ),
-    CartItem(
-      name: 'Topi',
-      size: 'M',
-      color: 'hitam',
-      price: 300000,
+      price: 100000,
       image: 'assets/images/topi.png',
       selected: true,
     ),
@@ -43,15 +31,18 @@ class CartPage extends StatelessWidget {
         .fold(0, (sum, item) => sum + item.price);
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: Text('Keranjang'),
-        leading: BackButton(),
+        title: const Text('Keranjang', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0.5,
         actions: [
           Row(
             children: [
               Checkbox(value: false, onChanged: (val) {}),
-              Text("Select All"),
-              SizedBox(width: 10),
+              const Text("Select All", style: TextStyle(color: Colors.black)),
+              const SizedBox(width: 10),
             ],
           )
         ],
@@ -63,29 +54,42 @@ class CartPage extends StatelessWidget {
               children: cartItems.map((item) => CartItemWidget(item: item)).toList(),
             ),
           ),
-          Divider(),
+          const Divider(height: 1),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Subtotal', style: TextStyle(fontSize: 16)),
+                      const Text('Subtotal', style: TextStyle(fontSize: 16)),
                       Text(
                         'Rp${subtotal.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')},-',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.teal),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2CA58D),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Checkout'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2CA58D),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CheckoutPage()),
+                    );
+                  },
+                  child: const Text('Checkout', style: TextStyle(fontSize: 16, color: Colors.black)),
                 )
               ],
             ),
@@ -95,6 +99,7 @@ class CartPage extends StatelessWidget {
     );
   }
 }
+
 
 class CartItem {
   final String name;
@@ -132,7 +137,12 @@ class CartItemWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Checkbox(value: item.selected, onChanged: (_) {}),
+          Checkbox(
+            value: item.selected,
+            onChanged: (_) {},
+            fillColor: MaterialStateProperty.all(Color(0xFF2CA58D)),
+          ),
+
 
           Padding(
             padding: const EdgeInsets.only(right: 10),
