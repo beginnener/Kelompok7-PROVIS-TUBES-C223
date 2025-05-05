@@ -187,7 +187,7 @@ class HomePage extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.56,
+              childAspectRatio: 0.55,
               children: popularItems.map((item) => _buildProductCard(context, item)).toList(),
             ),
             GridView.count(
@@ -196,7 +196,7 @@ class HomePage extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.56,
+              childAspectRatio: 0.55,
               children: bundleItems.map((item) => _buildProductCard(context, item)).toList(),
             ),
           ],
@@ -222,6 +222,7 @@ class HomePage extends StatelessWidget {
         );
       },
       child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
         width: 160,
         decoration: BoxDecoration(
           color: Colors.white,

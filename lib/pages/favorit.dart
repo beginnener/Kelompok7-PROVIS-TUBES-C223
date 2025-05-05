@@ -108,7 +108,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               padding: const EdgeInsets.all(16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.7,
+                childAspectRatio: 0.56,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
               ),
