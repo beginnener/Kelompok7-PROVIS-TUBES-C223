@@ -8,10 +8,11 @@ import 'package:tubes_kelompok_7/pages/tas.dart';
 import 'package:tubes_kelompok_7/pages/promo.dart';
 import 'package:tubes_kelompok_7/pages/kategori.dart';
 import 'cart.dart';
+import 'package:tubes_kelompok_7/pages/detail_sepatu.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  
+
   final List<Map<String, dynamic>> categories = [
     {'label': 'Promo', 'imagePath': 'assets/images/logo-promo-home.png', 'color': Colors.redAccent},
     {'label': 'Tenda', 'imagePath': 'assets/images/logo-tenda-home.png', 'color': Colors.greenAccent},
@@ -121,70 +122,52 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            
             SizedBox(height: 20),
             Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-              GridView.count(
-                crossAxisCount: 5,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 8,
-                children: categories.map((cat) {
-                  return GestureDetector(
-                    onTap: () {
-                      if (cat['label'] == 'Promo') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => PromoPage()),
-                        );
-                      } else if (cat['label'] == 'Sepatu') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SepatuPage()),
-                        );
-                      } else if (cat['label'] == 'Tenda') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TendaPage()),
-                        );
-                      } else if (cat['label'] == 'Tas') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TasPage()),
-                        );
-                      } else if (cat['label'] == 'Lainnya') {
-                        openKategoriSlider(context); // <-- BUKA SLIDER
-                      }
-
-                    },
-
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            padding: EdgeInsets.all(1),
-                            child: Image.asset(
-                              cat['imagePath'],
-                              fit: BoxFit.contain,
-                            ),
+            GridView.count(
+              crossAxisCount: 5,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 8,
+              children: categories.map((cat) {
+                return GestureDetector(
+                  onTap: () {
+                    if (cat['label'] == 'Promo') {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PromoPage()));
+                    } else if (cat['label'] == 'Sepatu') {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SepatuPage()));
+                    } else if (cat['label'] == 'Tenda') {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TendaPage()));
+                    } else if (cat['label'] == 'Tas') {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TasPage()));
+                    } else if (cat['label'] == 'Lainnya') {
+                      openKategoriSlider(context);
+                    }
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          padding: EdgeInsets.all(1),
+                          child: Image.asset(
+                            cat['imagePath'],
+                            fit: BoxFit.contain,
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-
-
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
             SizedBox(height: 20),
             Text("Popular", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
@@ -195,9 +178,8 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
               childAspectRatio: 0.56,
-              children: popularItems.map((item) => _buildProductCard(item)).toList(),
+              children: popularItems.map((item) => _buildProductCard(context, item)).toList(),
             ),
-
             SizedBox(height: 20),
             Text("Bundle Sewa Camping", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
@@ -208,13 +190,13 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
               childAspectRatio: 0.56,
-              children: bundleItems.map((item) => _buildProductCard(item)).toList(),
+              children: bundleItems.map((item) => _buildProductCard(context, item)).toList(),
             ),
           ],
         ),
       ),
       bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 0, 
+        currentIndex: 0,
         onTap: (index) {
           Bottomnavbarhelper.handleBottomNavTap(context, index, 0);
         },
@@ -222,90 +204,107 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildProductCard(Map<String, dynamic> item) {
-    return Container(
-      width: 160,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 2,
-            offset: Offset(0, 1),
+  Widget _buildProductCard(BuildContext context, Map<String, dynamic> item) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(),
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-                  child: Image.asset(
-                    item['imagePath'],
-                    height: double.infinity,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                
-              ],
+        );
+
+      },
+      child: Container(
+        width: 160,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(0, 1),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 3,
+              child: Stack(
                 children: [
-                  Text(item['name'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                  Text(item['price'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  if (item.containsKey('rating'))
-                    Row(
-                      children: [
-                        Icon(Icons.star, color: Colors.amber, size: 16),
-                        Text(
-                          ' ${item['rating']} (${item['reviews']} review)',
-                          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-                        ),
-                      ],
+                  ClipRRect(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+                    child: Image.asset(
+                      item['imagePath'],
+                      height: double.infinity,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.teal,
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: const Text(
-                            'add to cart',
-                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(item['name'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                    Text(item['price'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    if (item.containsKey('rating'))
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.amber, size: 16),
+                          Text(
+                            ' ${item['rating']} (${item['reviews']} review)',
+                            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                          ),
+                        ],
+                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.teal,
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              elevation: 0,
+                            ),
+                            child: const Text(
+                              'add to cart',
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  void openKategoriSlider(BuildContext context) {
+    // Implementasi navigasi atau modal
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Kategori lainnya belum tersedia.")),
     );
   }
 }
