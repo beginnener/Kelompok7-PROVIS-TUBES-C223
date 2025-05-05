@@ -7,6 +7,7 @@ import 'package:tubes_kelompok_7/pages/tenda.dart';
 import 'package:tubes_kelompok_7/pages/tas.dart';
 import 'package:tubes_kelompok_7/pages/promo.dart';
 import 'package:tubes_kelompok_7/pages/kategori.dart';
+import 'cart.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -85,7 +86,15 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8),
-                Icon(Icons.shopping_cart_outlined),
+                IconButton(
+                  icon: Icon(Icons.shopping_cart_outlined),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CartPage()),
+                    );
+                  },
+                ),
                 SizedBox(width: 12),
                 Icon(Icons.notifications_outlined),
               ],
