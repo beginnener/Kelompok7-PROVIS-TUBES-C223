@@ -5,21 +5,21 @@ import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
 class TransaksiPage extends StatelessWidget {
   final List<Map<String, dynamic>> transaksiList = [
     {
-      "nama": "Sepatu Nike",
+      "nama": "Sepatu",
       "harga": "Rp100.000,-",
-      "image": "https://via.placeholder.com/100x100.png?text=Sepatu",
+      "image": "assets/images/sepatu.png",
       "sisaHari": 3
     },
     {
-      "nama": "Topi abu",
+      "nama": "Topi",
       "harga": "Rp100.000,-",
-      "image": "https://via.placeholder.com/100x100.png?text=Topi",
+      "image": "assets/images/topi.png",
       "sisaHari": 3
     },
     {
       "nama": "Senter",
       "harga": "Rp100.000,-",
-      "image": "https://via.placeholder.com/100x100.png?text=Senter",
+      "image": "assets/images/senter.jpg",
       "sisaHari": 1
     },
   ];
