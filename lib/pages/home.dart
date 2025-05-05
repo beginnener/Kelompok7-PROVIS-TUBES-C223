@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
+import 'package:tubes_kelompok_7/pages/notification.dart';
 import 'package:tubes_kelompok_7/pages/searchPage.dart';
 import 'package:tubes_kelompok_7/pages/sepatu.dart';
 import 'package:tubes_kelompok_7/pages/tenda.dart';
@@ -97,7 +98,15 @@ class HomePage extends StatelessWidget {
                   },
                 ),
                 SizedBox(width: 12),
-                Icon(Icons.notifications_outlined),
+                IconButton(
+                  icon: Icon(Icons.notifications_outlined), 
+                  onPressed: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => NotificationPage()),
+                    );
+                  } 
+                ),
               ],
             ),
             SizedBox(height: 20),
