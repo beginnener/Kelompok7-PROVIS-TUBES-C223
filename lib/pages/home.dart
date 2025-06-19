@@ -8,12 +8,22 @@ import 'package:tubes_kelompok_7/pages/tenda.dart';
 import 'package:tubes_kelompok_7/pages/tas.dart';
 import 'package:tubes_kelompok_7/pages/promo.dart';
 import 'package:tubes_kelompok_7/pages/kategori.dart';
+import 'package:tubes_kelompok_7/component/product_card.dart';
 import 'cart.dart';
 import 'package:tubes_kelompok_7/pages/detail_sepatu.dart';
+import 'package:tubes_kelompok_7/models/item_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
 
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+class _HomePageState extends State<HomePage> {
   final List<Map<String, dynamic>> categories = [
     {'label': 'Promo', 'imagePath': 'assets/images/logo-promo-home.png', 'color': Colors.redAccent},
     {'label': 'Tenda', 'imagePath': 'assets/images/logo-tenda-home.png', 'color': Colors.greenAccent},
@@ -22,23 +32,33 @@ class HomePage extends StatelessWidget {
     {'label': 'Lainnya', 'imagePath': 'assets/images/logo-lainnya.png', 'color': Colors.tealAccent},
   ];
 
-  final List<Map<String, dynamic>> popularItems = [
-    {
-      'name': 'Sepatu Gunung',
-      'price': 'Rp100.000,-',
-      'rating': 5.0,
-      'reviews': 100,
-      'imagePath': 'assets/images/hiking_shoes.png',
-    },
-    {
-      'name': 'Senter',
-      'price': 'Rp200.000,-',
-      'rating': 5.0,
-      'reviews': 10,
-      'imagePath': 'assets/images/flashlight.jpg',
-    },
-  ];
+  List<ItemModel> items = [];
+  bool isLoading = true;
 
+  @override
+  void initState() {
+    super.initState();
+    fetchItems();
+  }
+
+  Future<void> fetchItems() async {
+  final response = await http.get(Uri.parse('http://192.168.137.1:8000/items'));
+
+  if (response.statusCode == 200) {
+    final List<dynamic> data = jsonDecode(response.body);
+    setState(() {
+      items = data.map((item) => ItemModel.fromJson(item)).toList();
+      isLoading = false;
+    });
+  } else {
+    print('Failed to load items');
+    setState(() {
+      isLoading = false;
+    });
+  }
+}
+
+  
   final List<Map<String, dynamic>> bundleItems = [
     {
       'name': 'Bundle Hemat',
@@ -134,7 +154,9 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-            GridView.count(
+            isLoading
+            ? Center(child: CircularProgressIndicator())
+            : GridView.count(
               crossAxisCount: 5,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -181,23 +203,16 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             Text("Popular", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
-            GridView.count(
+            isLoading
+            ? Center(child: CircularProgressIndicator())
+            : GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.55,
-              children: popularItems.map((item) => _buildProductCard(context, item)).toList(),
-            ),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 0.55,
-              children: bundleItems.map((item) => _buildProductCard(context, item)).toList(),
+              childAspectRatio: 0.52,
+              children: items.map((item) => ProductCard(item: item)).toList(),
             ),
           ],
         ),
@@ -207,103 +222,6 @@ class HomePage extends StatelessWidget {
         onTap: (index) {
           Bottomnavbarhelper.handleBottomNavTap(context, index, 0);
         },
-      ),
-    );
-  }
-
-  Widget _buildProductCard(BuildContext context, Map<String, dynamic> item) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(),
-          ),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        width: 160,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: Offset(0, 1),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-                    child: Image.asset(
-                      item['imagePath'],
-                      height: double.infinity,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(item['name'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                    Text(item['price'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                    if (item.containsKey('rating'))
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.amber, size: 16),
-                          Text(
-                            ' ${item['rating']} (${item['reviews']} review)',
-                            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-                          ),
-                        ],
-                      ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: 80,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.teal,
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              elevation: 0,
-                            ),
-                            child: const Text(
-                              'add to cart',
-                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
