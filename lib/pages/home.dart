@@ -130,27 +130,23 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 8,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  'assets/images/banner.png',
+            Stack(
+              children: [
+                SizedBox(
                   height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+                  child: PageView(
+                    children: [
+                      _buildBanner('assets/images/banner.png'),
+                      _buildBanner('assets/images/banner.png'),
+                      _buildBanner('assets/images/banner.png'),
+                    ],
+                  ),
                 ),
-              ),
+
+
+              ],
             ),
+
             SizedBox(height: 20),
             Text("Catalog", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
             SizedBox(height: 12),
@@ -225,4 +221,32 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Widget _buildBanner(String imagePath) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+    child: Container(
+      width: 354,
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 4,
+            offset: Offset(0, 0),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+        ),
+      ),
+    ),
+  );
+}
+
 }
