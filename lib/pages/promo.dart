@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_kelompok_7/component/add_tocart.dart';
 
 class PromoPage extends StatefulWidget {
   const PromoPage({super.key});
@@ -41,12 +42,6 @@ class _PromoPageState extends State<PromoPage> {
     setState(() {
       items[index]['isFavorite'] = !items[index]['isFavorite'];
     });
-  }
-
-  void _addToCart(String name) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$name ditambahkan ke keranjang')),
-    );
   }
 
   @override
@@ -164,7 +159,7 @@ class _PromoPageState extends State<PromoPage> {
                                 children: [
                                   const Spacer(),
                                   ElevatedButton(
-                                    onPressed: () => _addToCart(item['name']),
+                                    onPressed: () => addToCart(item['name'], context),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.teal,
                                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

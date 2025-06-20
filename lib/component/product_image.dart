@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-  // Helper method to build product image
-Widget _buildProductImage(Map<String, dynamic> item) {
+Widget buildProductImage(Map<String, dynamic> item) {
   try {
     // Try to load the image from assets
     return Image.asset(

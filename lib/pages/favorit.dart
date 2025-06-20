@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
+import 'package:tubes_kelompok_7/component/favorite_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -159,7 +160,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               itemCount: _favoriteItems.length,
               itemBuilder: (context, index) {
                 final item = _favoriteItems[index];
-                return _buildProductCard(item, index);
+                return buildProductCard(item, index, context);
               },
             ),
           ),
