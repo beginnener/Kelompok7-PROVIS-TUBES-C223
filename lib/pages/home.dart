@@ -142,8 +142,6 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-
-
               ],
             ),
 
@@ -172,7 +170,6 @@ class _HomePageState extends State<HomePage> {
                     }else if (cat['label'] == 'Lainnya') {
                       openKategoriSlider(context);
                     }
-
                   },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
