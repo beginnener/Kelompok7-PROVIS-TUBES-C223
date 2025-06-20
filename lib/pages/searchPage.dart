@@ -129,7 +129,7 @@ class _SearchPageState extends State<SearchPage> {
                               // Product Image
                               ClipRRect(
                                 borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-                                child: Image.network(
+                                child: Image.asset(
                                   item['image'],
                                   width: double.infinity,
                                   height: 168,

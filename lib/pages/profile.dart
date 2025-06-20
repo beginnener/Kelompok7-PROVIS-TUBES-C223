@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
+import 'package:tubes_kelompok_7/pages/chat.dart';
 import 'package:tubes_kelompok_7/pages/favorit.dart';
+import 'package:tubes_kelompok_7/pages/privacypolicy.dart';
 import 'package:tubes_kelompok_7/pages/settings.dart';
+import 'package:tubes_kelompok_7/pages/shopinfo.dart';
+import 'package:tubes_kelompok_7/pages/transaksi.dart';
 import 'package:tubes_kelompok_7/pages/voucher.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -44,13 +48,13 @@ class ProfilePage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                buildListTile(context, (context) => Placeholder(), Icons.receipt, 'Transaksi'),
+                buildListTile(context, (context) => TransaksiPage(), Icons.receipt, 'Transaksi'),
                 buildListTile(context, (context) => VoucherListScreen(), Icons.discount, 'Voucher Saya'),
                 buildListTile(context, (context) => SettingsPage(), Icons.settings, 'Pengaturan'),
                 buildListTile(context, (context) => FavoritesPage(), Icons.favorite_border, 'Favorit Saya'),
-                buildListTile(context, (context) => Placeholder(), Icons.chat_bubble_outline, 'Chat'),
-                buildListTile(context, (context) => Placeholder(), Icons.info_outline, 'Info Berbelanja'),
-                buildListTile(context, (context) => Placeholder(), Icons.lock_outline, 'Kebijakan Privasi'),
+                buildListTile(context, (context) => ChatDetailPage(), Icons.chat_bubble_outline, 'Chat'),
+                buildListTile(context, (context) => ShopInformationaPage(), Icons.info_outline, 'Info Berbelanja'),
+                buildListTile(context, (context) => PrivacyPolicyPage(), Icons.lock_outline, 'Kebijakan Privasi'),
                 ListTile(
                   title: const Text(
                     'Keluar akun',
