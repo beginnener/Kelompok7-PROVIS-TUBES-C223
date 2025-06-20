@@ -1,14 +1,7 @@
   import 'package:flutter/material.dart';
   import 'package:tubes_kelompok_7/component/product_image.dart';
   import 'package:tubes_kelompok_7/component/add_tocart.dart';
-  // Widget _buildProductImage(Map<String, dynamic> item) {
-  //   // Replace with your actual image loading logic
-  //   return Image.network(
-  //     item['imageUrl'] ?? '',
-  //     fit: BoxFit.cover,
-  //     errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
-  //   );
-  // }
+ 
   Widget buildProductCard(Map<String, dynamic> item, int index, BuildContext context) { 
     return Container(
       decoration: BoxDecoration(

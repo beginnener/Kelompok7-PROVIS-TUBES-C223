@@ -3,28 +3,7 @@ import 'package:tubes_kelompok_7/component/bottom_navbar.dart';
 import 'package:tubes_kelompok_7/component/bottom_navbar_helper.dart';
 import 'package:tubes_kelompok_7/component/favorite_card.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shopping App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: const FavoritesPage(),
-    );
-  }
-}
-
 String _selectedSortOption = 'Name';
-
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
 
@@ -63,15 +42,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
       'reviews': '100'
     },
   ];
-
-  void _addToCart(int index) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${_favoriteItems[index]['name']} added to cart'),
-        duration: const Duration(seconds: 1),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
