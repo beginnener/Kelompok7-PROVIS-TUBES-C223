@@ -1,6 +1,105 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_kelompok_7/models/ekspedisi_model.dart';
 
-class CheckoutPage extends StatelessWidget {
+final List<Map<String, dynamic>> expedisiHarga = [
+    {
+      'id':'1',
+      'name': 'JNE',
+      'price': '19000',
+    },
+    {
+      'id':'2',
+      'name': 'J&T EXPRESS',
+      'price': '19000',
+    },
+    {
+      'id':'3',
+      'name': 'Ninja EXPRESS',
+      'price': '18000',
+    },
+  ];
+
+class CheckoutPage extends StatefulWidget {
+  @override
+  _CheckoutPageState createState() => _CheckoutPageState();
+}
+
+final List<Map<String, dynamic>> metodeBayar = [
+    {
+      'id':'1',
+      'name': 'BCA Virtual Account',
+      'picture': 'https://shl.co.id/wp-content/uploads/2022/11/lg-bca.png',
+    },
+    {
+      'id':'2',
+      'name': 'QRIS',
+      'picture': 'https://cdn.rri.co.id/berita/Lhokseumawe/o/1746967360474-InShot_20250511_192805646/bw4yol2ts5teq5t.jpeg',
+    },
+    {
+      'id':'3',
+      'name': 'Cash',
+      'picture': 'https://i.pinimg.com/474x/12/8a/66/128a66a69ea1dc8871697b8ca8012799.jpg',
+    },
+  ];
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  Map<String, dynamic>? selectedExpedisi;
+  Map<String, dynamic>? selectedMetodeBayar;
+
+
+  void _showMetodeBayarDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Pilih Metode Pembayaran'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: metodeBayar.map((metode) {
+            return ListTile(
+              leading: Image.network(metode['picture'], width: 40, height: 40),
+              title: Text(metode['name']),
+              onTap: () {
+                setState(() {
+                  selectedMetodeBayar = metode;
+                });
+                Navigator.pop(context);
+              },
+            );
+          }).toList(),
+        ),
+      );
+    },
+  );
+}
+
+
+  void _showExpedisiDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Pilih Ekspedisi'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: expedisiHarga.map((exp) {
+              return ListTile(
+                title: Text(exp['name']),
+                subtitle: Text('Rp${exp['price']}'),
+                onTap: () {
+                  setState(() {
+                    selectedExpedisi = exp;
+                  });
+                  Navigator.pop(context);
+                },
+              );
+            }).toList(),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,17 +135,29 @@ class CheckoutPage extends StatelessWidget {
                 ),
 
                 _SectionTitle("Metode Pengiriman"),
-                _OptionTile(
-                  image: 'assets/images/JNE.png',
-                  title: 'JNE Instan',
-                  subtitle: 'Estimasi 1 Hari\nRp12.000,-',
+                GestureDetector(
+                  onTap: () => _showExpedisiDialog(context),
+                  child: _OptionTile(
+                    icon: Icons.local_shipping,
+                    title: selectedExpedisi?['name'] ?? 'Pilih Ekspedisi',
+                    subtitle: selectedExpedisi != null
+                        ? 'Rp${selectedExpedisi!['price']}'
+                        : 'Klik untuk memilih jasa pengiriman',
+                  ),
                 ),
 
                 _SectionTitle("Metode Pembayaran"),
-                _OptionTile(
-                  image: 'assets/images/BCA.png',
-                  title: 'BCA Virtual Account',
+                GestureDetector(
+                  onTap: () => _showMetodeBayarDialog(context),
+                  child: _OptionTile(
+                    image: null,
+                    title: selectedMetodeBayar?['name'] ?? 'Pilih Metode Pembayaran',
+                    subtitle: selectedMetodeBayar != null
+                        ? 'Klik untuk mengganti metode'
+                        : 'Klik untuk memilih metode pembayaran',
+                  ),
                 ),
+
                 _OptionTile(
                   icon: Icons.percent,
                   title: 'Promo',
@@ -61,6 +172,7 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 }
+
 
 // --------------------------
 // COMPONENTS
