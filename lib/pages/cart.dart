@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'checkout.dart';
-import 'package:tubes_kelompok_7/models/cart_item.dart';
+import 'package:tubes_kelompok_7/models/cart.dart';
 import 'package:tubes_kelompok_7/component/cart_item_card.dart';
 
 class CartPage extends StatelessWidget {

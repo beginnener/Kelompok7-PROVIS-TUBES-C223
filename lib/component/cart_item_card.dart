@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tubes_kelompok_7/models/cart_item.dart';
+import 'package:tubes_kelompok_7/models/cart.dart';
 
 class CartItemWidget extends StatelessWidget {
   final CartItem item;
