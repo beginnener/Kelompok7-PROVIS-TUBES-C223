@@ -3,13 +3,6 @@ import 'package:tubes_kelompok_7/pages/review.dart';
 import 'chat.dart';
 import 'cart.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: ProductDetailPage(),
-    debugShowCheckedModeBanner: false,
-  ));
-}
-
 class ProductDetailPage extends StatelessWidget {
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(

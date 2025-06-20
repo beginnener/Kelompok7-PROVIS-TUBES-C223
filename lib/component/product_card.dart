@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/models/item_model.dart';
 import 'package:tubes_kelompok_7/pages/detail_sepatu.dart';
+import 'package:tubes_kelompok_7/component/formatting.dart';
 
 class ProductCard extends StatelessWidget {
   final ItemModel item;
@@ -74,7 +75,7 @@ class ProductCard extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'Rp${item.price}',
+                                  formatPrice(item.price),
                                   style: const TextStyle(
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,

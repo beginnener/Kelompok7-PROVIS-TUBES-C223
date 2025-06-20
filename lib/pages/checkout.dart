@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: CheckoutPage(),
-    debugShowCheckedModeBanner: false,
-  ));
-}
-
 class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
