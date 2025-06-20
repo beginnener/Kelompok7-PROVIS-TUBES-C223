@@ -33,10 +33,10 @@ class ChatDetailPage extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                          child: Image.network(
+                          child: Image.asset(
                             'assets/images/hiking_shoes.png',
                             width: double.infinity,
-                            height: 140,
+                            height: null,
                             fit: BoxFit.cover,
                           ),
                         ),

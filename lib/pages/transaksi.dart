@@ -102,16 +102,28 @@ class TransaksiPage extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.network(item["image"], width: 60, height: 60),
+          Image.asset(item["image"], width: 60, height: 60),
           SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item["nama"], style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("Lihat Semua", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                Text(
+                  item["nama"], 
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  "Lihat Semua", 
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                  overflow: TextOverflow.ellipsis,
+                ),
                 SizedBox(height: 4),
-                Text(item["harga"], style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  item["harga"], 
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                  ),
                 SizedBox(height: 6),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
