@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+String _selectedSortOption = 'Name';
+
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
 
@@ -97,28 +99,50 @@ class _FavoritesPageState extends State<FavoritesPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
-              children: [
+                children: [
                 const Text(
                   'Sort By:',
                   style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(width: 8),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: Colors.grey.shade300),
+                DropdownButton<String>(
+                  value: _selectedSortOption,
+                  items: const [
+                  DropdownMenuItem(
+                    value: 'Name',
+                    child: Text('Name'),
                   ),
-                  child: const Text(
-                    'Sort',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  DropdownMenuItem(
+                    value: 'Price: Low to High',
+                    child: Text('Price: Low to High'),
                   ),
+                  DropdownMenuItem(
+                    value: 'Price: High to Low',
+                    child: Text('Price: High to Low'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Rating',
+                    child: Text('Rating'),
+                  ),
+                  ],
+                  onChanged: (value) {
+                  if (value != null) {
+                    setState(() {
+                    _selectedSortOption = value;
+                    // _sortFavorites();
+                    });
+                  }
+                  },
+                  underline: Container(),
+                  style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(4),
                 ),
               ],
             ),
@@ -128,7 +152,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               padding: const EdgeInsets.all(16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.56,
+                childAspectRatio: 0.52,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
               ),
@@ -237,7 +261,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       onPressed: () => _addToCart(index),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal,
-                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
                         ),
