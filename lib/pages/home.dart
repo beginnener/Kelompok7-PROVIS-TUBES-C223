@@ -10,7 +10,6 @@ import 'package:tubes_kelompok_7/pages/promo.dart';
 import 'package:tubes_kelompok_7/pages/kategori.dart';
 import 'package:tubes_kelompok_7/component/product_card.dart';
 import 'cart.dart';
-import 'package:tubes_kelompok_7/pages/detail_sepatu.dart';
 import 'package:tubes_kelompok_7/models/item_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
