@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_kelompok_7/component/formatting.dart';
+import 'package:tubes_kelompok_7/component/add_tocart.dart';
+import 'package:tubes_kelompok_7/component/showButtonSheet.dart';
 
 class TendaPage extends StatefulWidget {
   const TendaPage({super.key});
@@ -45,25 +48,15 @@ class _TendaPageState extends State<TendaPage> {
   void _applySort() {
     setState(() {
       if (_selectedSort == 'Harga Terendah') {
-        items.sort((a, b) => _parsePrice(a['price']).compareTo(_parsePrice(b['price'])));
+        items.sort((a, b) => parsePrice(a['price']).compareTo(parsePrice(b['price'])));
       } else if (_selectedSort == 'Harga Tertinggi') {
-        items.sort((a, b) => _parsePrice(b['price']).compareTo(_parsePrice(a['price'])));
+        items.sort((a, b) => parsePrice(b['price']).compareTo(parsePrice(a['price'])));
       } else if (_selectedSort == 'Terpopuler') {
         items.sort((a, b) => int.parse(b['reviews']).compareTo(int.parse(a['reviews'])));
       } else if (_selectedSort == 'Terbaru') {
         // Placeholder
       }
     });
-  }
-
-  int _parsePrice(String price) {
-    return int.tryParse(price.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-  }
-
-  void addToCart(String name) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$name ditambahkan ke keranjang')),
-    );
   }
 
   @override
@@ -116,7 +109,7 @@ class _TendaPageState extends State<TendaPage> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                childAspectRatio: 0.56,
+                childAspectRatio: 0.52,
               ),
               itemCount: items.length,
               itemBuilder: (context, index) {
@@ -179,7 +172,9 @@ class _TendaPageState extends State<TendaPage> {
                                   SizedBox(
                                     width: 80,
                                     child: ElevatedButton(
-                                      onPressed: () => addToCart(item['name']),
+                                      onPressed: () {
+                                        Showbuttonsheet.show(context, 1);
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.teal,
                                         padding: const EdgeInsets.symmetric(vertical: 4),

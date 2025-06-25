@@ -115,7 +115,7 @@ class _AlatMakanPageState extends State<AlatMakanPage> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                childAspectRatio: 0.56,
+                childAspectRatio: 0.52,
               ),
               itemCount: items.length,
               itemBuilder: (context, index) {

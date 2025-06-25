@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
     final List<dynamic> data = jsonDecode(response.body);
     setState(() {
       items = data.map((item) => ItemModel.fromJson(item)).toList();
+      print(items);
       isLoading = false;
     });
   } else {

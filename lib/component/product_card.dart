@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tubes_kelompok_7/models/item_model.dart';
 import 'package:tubes_kelompok_7/pages/detail_sepatu.dart';
 import 'package:tubes_kelompok_7/component/formatting.dart';
+import 'package:tubes_kelompok_7/component/showButtonSheet.dart';
 
 class ProductCard extends StatelessWidget {
   final ItemModel item;
@@ -41,7 +42,7 @@ class ProductCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-              child: Image.asset(
+              child: Image.network(
                 item.imagePath,
                 height: 120,
                 width: double.infinity,
@@ -119,7 +120,9 @@ class ProductCard extends StatelessWidget {
                     child: SizedBox(
                       width: 80,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Showbuttonsheet.show(context, item.id);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.teal,
                           padding: const EdgeInsets.symmetric(vertical: 4),

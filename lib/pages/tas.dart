@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_kelompok_7/component/showButtonSheet.dart';
 
 class TasPage extends StatefulWidget {
   const TasPage({super.key});
@@ -116,7 +117,7 @@ class _TasPageState extends State<TasPage> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                childAspectRatio: 0.56,
+                childAspectRatio: 0.52,
               ),
               itemCount: items.length,
               itemBuilder: (context, index) {
@@ -179,7 +180,9 @@ class _TasPageState extends State<TasPage> {
                                   SizedBox(
                                     width: 80,
                                     child: ElevatedButton(
-                                      onPressed: () => addToCart(item['name']),
+                                      onPressed: () {
+                                        Showbuttonsheet.show(context, 1);
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.teal,
                                         padding: const EdgeInsets.symmetric(vertical: 4),

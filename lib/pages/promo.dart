@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tubes_kelompok_7/component/add_tocart.dart';
+// import 'package:tubes_kelompok_7/component/add_tocart.dart';
+import 'package:tubes_kelompok_7/component/showButtonSheet.dart';
 
 class PromoPage extends StatefulWidget {
   const PromoPage({super.key});
@@ -159,7 +160,9 @@ class _PromoPageState extends State<PromoPage> {
                                 children: [
                                   const Spacer(),
                                   ElevatedButton(
-                                    onPressed: () => addToCart(item['name'], context),
+                                    onPressed: () {
+                                      Showbuttonsheet.show(context, 1);
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.teal,
                                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
